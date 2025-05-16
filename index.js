@@ -6,9 +6,9 @@ app.use(cors());
 app.use(expreess.json());
 //post
 app.post('/usu', async (req, res) => {
-    const { login, email, senha } = req.body;
+    const { usuemail, usupassword } = req.body;
     try {
-        const result = await pool.query('INSERT INTO usu (usulogin, usuemail, usupassword) VALUES ($1, $2, $3) RETURNING *', [login, email,senha]);
+        const result = await pool.query('INSERT INTO usu (usuemail, usupassword) VALUES ($1, $2) RETURNING usucod,usuemail,usupassword', [usuemail,usupassword]);
         res.status(201).json(result.rows[0]);
     } catch (error) {
         console.error(error);
@@ -18,7 +18,7 @@ app.post('/usu', async (req, res) => {
 //get
 app.get('/usu', async (req, res) => {
     try {
-        const result = await pool.query('SELECT usucod, usulogin,usuemail FROM usu');
+        const result = await pool.query('SELECT usucod,usuemail,usupassword FROM usu');
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -46,7 +46,7 @@ app.put('/usu/:id', async (req, res) => {
     const { id } = req.params;
     const { login, email, senha } = req.body;
     try {
-        const result = await pool.query('UPDATE usu SET login = $1, email = $2, usupassword = $3 WHERE usucod = $4 RETURNING *', [login, email, senha]);
+        const result = await pool.query('UPDATE usu SET usuemail = $1, usupassword = $2 WHERE usucod = $3 RETURNING *', [login, email, senha]);
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'User not found' });
         }
