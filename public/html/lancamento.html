@@ -30,26 +30,16 @@
                                    <option> </option>
                                 </select>
                             </div>
-                            <!-- <div class="form-group">
-                                <label>Tipo de Registro:</label>
-                                <select name="tipo_registro" class="form-control" required>
-                                    <option value="" hidden>Selecione uma opção</option>
-                                    <option value="entrada">Crédito(+)</option>
-                                    <option value="saida">Débito(-)</option>
-                                </select>
-                            </div> -->
+                        
                             <div class="form-group">
                                 <label>Valor:</label>
                                 <input type="valor" name="docv" class="form-control" required
                                     placeholder="R$ 0,00">
+                                <label >Observações (opcional):</label>
+                                <textarea name="docobs" rows="3" class="form-control" placeholder="Informações complementares"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label>Data e Hora:</label>
-                                <input type="datetime-local" name="horario_manual" class="form-control">
-                                <label id="docobs" >Observações (opcional):</label>
-                                <textarea name="observacoes" rows="3" class="form-control"
-                                    placeholder="Informações complementares"></textarea>
-                            </div>
+                            
+                               
                             <button class="btn btn-success" type="submit">Salvar</button>
                         </form>
                     </div>
@@ -59,7 +49,6 @@
     </div>
 
     <script>
-    // Assim que a página carregar, faz a requisição para o endpoint
     document.addEventListener("DOMContentLoaded", function () {
         fetch('http://localhost:3000/tc')
             .then(response => response.json())
@@ -77,16 +66,13 @@
                 console.error("Erro ao carregar tipos de cobrança:", error);
             });
     });
-    //     
-    // 
-    // // post
+    // post
 document.getElementById("meuFormulario").addEventListener("submit", function (e) {
-    e.preventDefault(); // impede o recarregamento
+    e.preventDefault();
 
     const form = e.target;
     const formData = new FormData(form);
 
-    // Converte para objeto
     const data = Object.fromEntries(formData.entries());
 
     fetch("http://localhost:3000/doc", {
