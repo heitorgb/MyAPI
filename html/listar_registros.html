@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Registros</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="card-header">Meus Lançamentos</h1>
+    <!-- <h2>Registros de Entrada, Saída e Almoço</h2> -->
+
+    <button id="btnMostrar" class="btn btn-success" type="submit">Buscar</button>
+    <a href="dashboard.html"><button id="btnVoltar" class="btn btn-success" type="submit" >Voltar</button> </a>
+
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Cobrança</th>
+          <th>Valor</th>
+          <th>Observações</th>
+        </tr>
+      </thead>
+      <tbody id="corpoTabela">
+       </tbody>
+    </table>
+
+    <!-- Paginação -->
+    <div>
+      <ul class="pagination justify-content-center">
+
+        <!-- Botão "Anterior" -->
+        <li class="page-item ">
+          <a class="page-link"
+            href="">Anterior</a>
+        </li>
+
+        <!-- Números das páginas -->
+       
+          <li class="page-item ">
+            <a class="page-link"
+              href="">
+              
+            </a>
+          </li>
+        
+
+        <!-- Botão "Próximo" -->
+        <li class="page-item">
+          <a class="page-link"
+            href="">Próximo</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <script src="../get.js" ></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+
+</html>
