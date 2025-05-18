@@ -1,11 +1,11 @@
 const pool = require('../db/db.js');
 
 exports.criarDoc = async (req, res) => {
-    const { docempparcod, doc_conta_id, doc_cc_id, doctccod, docv, docobs } = req.body;
+    const { docempparcod, doctipo ,docsta,docdsta,docv,doctccod,docnum,docobs } = req.body;
     try {
         const result = await pool.query(
-            'INSERT INTO doc (docempparcod, doc_conta_id, doc_cc_id, doctccod, docv, docobs) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-            [docempparcod, doc_conta_id, doc_cc_id, doctccod, docv, docobs]
+            'INSERT INTO doc (docempparcod, doctipo ,docsta,docdsta,docv,doctccod,docnum,docobs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+            [docempparcod, doctipo ,docsta,docdsta,docv,doctccod,docnum,docobs]
         );
         res.status(201).json(result.rows[0]);
     } catch (error) {
