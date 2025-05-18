@@ -3,7 +3,8 @@ const cors = require('cors');
 const app = express();
 
 const docRoutes = require('./routes/docRoutes');
-const tcRoutes = require('./routes/tcRoutes');   // separe depois
+const tcRoutes = require('./routes/tcRoutes'); 
+const loginRoutes = require('./routes/loginRoute');
 
 app.use(cors());
 app.use(express.json());
@@ -11,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(docRoutes);
 app.use(tcRoutes);
+app.use('/',loginRoutes);
 
 app.listen(3000, () => {
     console.log('Servidor rodando na porta 3000');
