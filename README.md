@@ -100,29 +100,6 @@ INSERT INTO doc (docempparcod, docv, doctccod) VALUES (1, 100.00, 1);
 - Permissões completas: `postgres`
 - Permissão de leitura: `consulta`
 
----
-
-## 🔁 Sequence `seq_doc`
-
-Responsável por gerar automaticamente o código (`doccod`) para os documentos na tabela `doc`.
-
-```sql
-CREATE SEQUENCE public.seq_doc
-  INCREMENT BY 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
-  NO CYCLE;
-```
-
-- Associada ao campo `doccod` da tabela `doc`.
-
-```sql
-ALTER TABLE public.doc ADD doccod int4 DEFAULT nextval('seq_doc'::regclass) NOT NULL;
-```
-
----
 
 ## ✅ Consultas e Testes
 
