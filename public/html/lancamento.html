@@ -13,7 +13,7 @@
         <div class="card">
             <h1 class="card-header">Registro de Lançamentos</h1>
             <div class="card-body">
-                <a href="dashboard.html"><button id="btnVoltar" class="btn btn-success" type="submit" >Voltar</button> </a>
+                <a href="dashboard.html"><button id="btnVoltar" class="btn btn-primary" type="submit" >Voltar</button> </a>
                 <div class="container d-flex justify-content-center">
                     <div class="w-100" style="max-width: 400px;">
                         
@@ -43,10 +43,70 @@
                     </div>
                 </div>
             </div>
+            <!-- criar uma table para mostrar os lançamentos -->
+            <div class="card">
+                <h1 class="card-header">Lançamentos Cadastrados</h1>
+                <div class="card-body">
+                    <table class="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Valor</th>
+                                <th>Cobrança</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpoTabela">
+                        </tbody>
+                    </table>
+                </div>
         </div>
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        fetch("http://localhost:3000/doc")
+            .then(res => res.json())
+            .then(dados => {
+                const corpoTabela = document.getElementById("corpoTabela");
+                corpoTabela.innerHTML = ""; // Limpa o conteúdo atual da tabela
+
+                dados.forEach(dado => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${dado.doccod}</td>
+                        <td>${dado.docv}</td>
+                        <td>${dado.doctccod}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="deletar(${dado.doccod})">Deletar</button>
+                        </td>
+
+                    `;
+                    corpoTabela.appendChild(tr);
+                });
+            })
+            .catch(erro => console.error(erro));
+        });
+
+        // Deletar
+        window.deletar = function (id) {
+            fetch(`http://localhost:3000/doc/${id}`, {
+                method: "DELETE"
+            })
+                .then(res => res.json())
+                .then(resposta => {
+                    alert("Registro deletado com sucesso!");
+                    // Atualiza a tabela após a exclusão
+                    document.getElementById("corpoTabela").innerHTML = "";
+                    location.reload();
+                })
+                .catch(erro => {
+                    alert("Erro ao deletar o registro.");
+                    console.error(erro);
+                });
+        };
+
+
     document.addEventListener("DOMContentLoaded", function () {
         fetch('http://localhost:3000/tc')
             .then(response => response.json())

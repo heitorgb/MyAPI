@@ -48,6 +48,18 @@ CREATE TABLE public.tc (
 - **tcdes**: Descrição (ex: "DINHEIRO").
 - **tctipo**: Tipo da cobrança (ex: "DH").
 
+Sequencia
+
+```sql
+CREATE SEQUENCE public.seq_tc
+  INCREMENT BY 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1
+  NO CYCLE;
+```
+
 ### ➕ Inserção de exemplo:
 ```sql
 INSERT INTO tc(tccod, tcdes, tctipo) VALUES (1, 'DINHEIRO', 'DH');
