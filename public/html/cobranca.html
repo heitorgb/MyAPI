@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Cobrança</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h1 class="card-header">Cobrança</h1>
+            <div class="card-body">
+                <a href="dashboard.html"><button id="btnVoltar" class="btn btn-primary" type="submit" >Voltar</button> </a>
+                <div class="container d-flex justify-content-center">
+                    <div class="w-100" style="max-width: 400px;">
+                        
+                        <form id="meuFormulario">
+                            <input type="hidden" name="docempparcod" value="1">
+                            <input type="hidden" name="tccod" value="">
+                            
+                            <div class="form-group">
+                                <label>Descrição:</label>
+                                <input type="descricao" name="tcdes" class="form-control" required
+                                    placeholder="Descrição da cobrança">
+                            </div>
+                            
+                            <button class="btn btn-success" type="submit">Salvar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- quero criar uma table para mostrar as cobranças que já tenho -->
+        <div class="card">
+            <h1 class="card-header">Cobranças Cadastradas</h1>
+            <div class="card-body">
+                <table class="table table-bordered mt-3">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Descrição</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabela">
+                    </tbody>
+                </table>
+            </div>
+    </div>
+
+    <script src="../js/tcTeste.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</body>
+
+</html>
