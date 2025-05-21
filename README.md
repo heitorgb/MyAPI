@@ -1,3 +1,47 @@
+# 💰 Portal de Controle Financeiro Pessoal
+
+Sistema web para controle financeiro pessoal com login e senha, onde o usuário pode registrar receitas, despesas e visualizar o total líquido.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+
+| 🖥️ Frontend  | ⚙️ Backend     | 📦 Pacotes Node.js                        |
+|--------------|----------------|-------------------------------------------|
+| HTML5        | Node.js        | express                                   |
+| CSS3         | Express        | pg                                        |
+| JavaScript   | PostgreSQL     | bcryptjs                                  |
+|              |                | jsonwebtoken                              |
+|              |                | body-parser                               |
+|              |                | cors *(opcional)*                         |
+|              |                | dotenv                                    |
+
+---
+
+# 📥 Instalação:
+
+### 1. Clone o repositório:
+```bash
+git clone https://github.com/CaioRodrigoCEVDEV/MyAPI.git
+```
+### 2. Instalação dos pacotes Node.js
+
+```bash
+npm init -y
+npm install express pg bcryptjs jsonwebtoken body-parser dotenv cors
+```
+### 3. Crie um arquivo .env na raiz com o seguinte conteúdo:
+
+```bash
+DB_HOST= SEU_IP
+DB_PORT=PORTA
+DB_USER=USUARIO
+DB_PASSWORD=SENHA
+DB_NAME=BASE_DADOS
+
+```
+---
 # 📦 Estrutura do Banco de Dados
 
 Este repositório contém a definição de um banco de dados PostgreSQL com três tabelas principais: `usu`, `tc` e `doc`, além de uma `SEQUENCE` utilizada para geração automática de IDs na tabela `doc`.
@@ -21,7 +65,7 @@ CREATE TABLE public.usu (
 
 ### 👤 Inserção de exemplo:
 ```sql
-INSERT INTO usu VALUES ('caiorodrigocev@gmail.com', md5('123'));
+INSERT INTO usu VALUES ('email@mail.com', md5('123'));
 ```
 
 ### 🔐 Permissões:
