@@ -144,54 +144,10 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Gastos</div>
+                                    <div class="card-body">Danger Card</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="page">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Débito (Gastos)</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <p>Valor R$</p>
-                                        <p id="valorTotalDebito"></p>
-                                        <!-- <a class="small text-white stretched-link" href="listar_registros.html">Ver mais</a> -->
-                                        <!-- <div class="small text-white"><i class="fas fa-angle-right"></i></div> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Crédito (Valores a Receber)</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <p>Valor R$</p>
-                                        <p id="valorTotalCredito"></p>
-                                        <!-- <div class="small text-white"><i class="fas fa-angle-right"></i></div> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Salário</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <p>Valor R$</p>
-                                        <p>R$ 3.000,00</p>
-                                        <!-- <div class="small text-white"><i class="fas fa-angle-right"></i></div> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Salário - Gastos</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <p>Valor R$</p>
-                                        <p>R$ 2.950,00</p>
-                                        <!-- <div class="small text-white"><i class="fas fa-angle-right"></i></div> -->
                                     </div>
                                 </div>
                             </div>
@@ -212,28 +168,6 @@
                 </footer>
             </div>
         </div>
-        <script>
-            const valorTotal = document.getElementById('valorTotalDebito');
-            const url = 'http://localhost:3000/doc/totaldeb';
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    valorTotal.innerHTML = Number(data.total).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                })
-                .catch(error => console.error('Erro ao buscar o total:', error));
-
-
-            const valorTotalCredito = document.getElementById('valorTotalCredito');
-            const urlCredito = 'http://localhost:3000/doc/totalcred';
-            fetch(urlCredito)
-                .then(response => response.json())
-                .then(data => {
-                    valorTotalCredito.innerHTML = Number(data.total).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                })
-                .catch(error => console.error('Erro ao buscar o total:', error));
-
-           
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="../js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
