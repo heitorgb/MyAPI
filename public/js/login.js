@@ -17,7 +17,7 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
 
     if (response.ok) {
       alert(data.mensagem); // opcional
-      window.location.href = 'dashboard.html';
+      window.location.href = 'http://localhost:3000/dash';
     } else {
       alert(data.mensagem || 'Email ou senha incorretos!');
     }
