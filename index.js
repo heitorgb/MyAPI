@@ -17,7 +17,6 @@ app.use('/',loginRoutes);
 app.use(express.static('public/'));
 
 
-
 app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/public/html/login.html');
 });
@@ -38,6 +37,11 @@ app.get('/page',(req,res)  => {
     res.sendFile(__dirname + '/public/html/page.html')
 });
 
+app.get('/cobranca',(req,res)  => {
+    res.sendFile(__dirname + '/public/html/cobranca.html')
+});
+
 app.listen(3000, () => {
     console.log('Servidor rodando na porta http://127.0.0.1:3000/login');
 });
+
