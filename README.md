@@ -6,24 +6,18 @@ Sistema web para controle financeiro pessoal com login e senha, onde o usuário 
 
 ## 🛠️ Tecnologias Utilizadas
 
-### Frontend:
-- HTML5
-- CSS3
-- JavaScript
 
-### Backend:
-- Node.js
-- Express
-- PostgreSQL
+| 🖥️ Frontend  | ⚙️ Backend     | 📦 Pacotes Node.js                        |
+|--------------|----------------|-------------------------------------------|
+| HTML5        | Node.js        | express                                   |
+| CSS3         | Express        | pg                                        |
+| JavaScript   | PostgreSQL     | bcryptjs                                  |
+|              |                | jsonwebtoken                              |
+|              |                | body-parser                               |
+|              |                | cors *(opcional)*                         |
+|              |                | dotenv                                    |
 
-### Pacotes Node.js:
-- express
-- pg
-- bcryptjs
-- jsonwebtoken
-- body-parser
-- cors (opcional para permitir requisições entre domínios)
-- dotenv
+---
 
 # 📥 Instalação:
 
