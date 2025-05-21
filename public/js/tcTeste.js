@@ -43,24 +43,50 @@
         window.editar = function (id) {
             const tr = event.target.closest("tr");
             const descricaoCell = tr.querySelector("td:nth-child(2)");
-            const descricao = prompt("Digite a nova descrição:", descricaoCell.textContent);
-            if (descricao) {
+            const valorAtual = descricaoCell.textContent;
+
+            // Cria um input para edição inline
+            const input = document.createElement("input");
+            input.type = "text";
+            input.value = valorAtual;
+            input.className = "form-control form-control-sm";
+            descricaoCell.innerHTML = "";
+            descricaoCell.appendChild(input);
+            input.focus();
+
+            // Salva ao pressionar Enter ou ao perder o foco
+            function salvar() {
+            const novaDescricao = input.value.trim();
+            if (novaDescricao && novaDescricao !== valorAtual) {
                 fetch(`http://localhost:3000/tc/${id}`, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ tcdes: descricao })
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ tcdes: novaDescricao })
                 })
-                    .then(res => res.json())
-                    .then(resposta => {
-                        alert("Registro atualizado com sucesso!");
-                        // Atualiza a tabela após a edição
-                        location.reload();
-                    })
-                    .catch(erro => {
-                        alert("Erro ao atualizar o registro.");
-                        console.error(erro);
-                    });
+                .then(res => res.json())
+                .then(resposta => {
+                    alert("Registro atualizado com sucesso!");
+                    descricaoCell.textContent = novaDescricao;
+                })
+                .catch(erro => {
+                    alert("Erro ao atualizar o registro.");
+                    descricaoCell.textContent = valorAtual;
+                    console.error(erro);
+                });
+            } else {
+                descricaoCell.textContent = valorAtual;
             }
+            }
+
+            input.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                salvar();
+            } else if (e.key === "Escape") {
+                descricaoCell.textContent = valorAtual;
+            }
+            });
+
+            input.addEventListener("blur", salvar);
         };
         
         

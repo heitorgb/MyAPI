@@ -16,13 +16,14 @@ exports.criarDoc = async (req, res) => {
 
 exports.listarDocs = async (req, res) => {
     try {
-        const result = await pool.query('SELECT doccod, doctccod, docv, docobs FROM doc');
+        const result = await pool.query('SELECT doccod, doctccod, doctipo, docv, docobs FROM doc');
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erro ao listar documentos' });
     }
 };
+
 
 exports.deletarDoc = async (req, res) => {
     const { id } = req.params;
@@ -45,3 +46,23 @@ exports.deletarTodos = async (req, res) => {
         res.status(500).json({ error: 'Erro ao deletar todos documentos' });
     }
 };
+
+exports.totalDocsDeb = async (_req, res) => {
+    try {
+        const result = await pool.query('SELECT SUM(docv) as total FROM doc WHERE doctipo = $1', ['D']);
+        res.status(200).json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao calcular o total de documentos' });
+    }
+}
+
+exports.totalDocsCred = async (_req, res) => {
+    try {
+        const result = await pool.query('SELECT SUM(docv) as total FROM doc WHERE doctipo = $1', ['C']);
+        res.status(200).json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao calcular o total de documentos' });
+    }
+}
