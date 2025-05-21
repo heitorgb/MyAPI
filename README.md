@@ -25,6 +25,13 @@ Sistema web para controle financeiro pessoal com login e senha, onde o usuário 
 - cors (opcional para permitir requisições entre domínios)
 - dotenv
 
+## 📦 Instalação dos pacotes Node.js
+
+```bash
+npm init -y
+npm install express pg bcryptjs jsonwebtoken body-parser dotenv cors
+```
+
 ---
 
 ## 📦 Instalação
