@@ -1,3 +1,40 @@
+# 💰 Portal de Controle Financeiro Pessoal
+
+Sistema web para controle financeiro pessoal com login e senha, onde o usuário pode registrar receitas, despesas e visualizar o total líquido.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+### Frontend:
+- HTML5
+- CSS3
+- JavaScript
+
+### Backend:
+- Node.js
+- Express
+- PostgreSQL
+
+### Pacotes Node.js:
+- express
+- pg
+- bcryptjs
+- jsonwebtoken
+- body-parser
+- cors (opcional para permitir requisições entre domínios)
+- dotenv
+
+---
+
+## 📦 Instalação
+
+### 1. Clone o repositório:
+```bash
+git clone https://github.com/CaioRodrigoCEVDEV/MyAPI.git
+
+
+
 # 📦 Estrutura do Banco de Dados
 
 Este repositório contém a definição de um banco de dados PostgreSQL com três tabelas principais: `usu`, `tc` e `doc`, além de uma `SEQUENCE` utilizada para geração automática de IDs na tabela `doc`.
