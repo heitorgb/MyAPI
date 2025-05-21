@@ -25,22 +25,18 @@ Sistema web para controle financeiro pessoal com login e senha, onde o usuário 
 - cors (opcional para permitir requisições entre domínios)
 - dotenv
 
+
+### 1. Clone o repositório:
+```bash
+git clone https://github.com/CaioRodrigoCEVDEV/MyAPI.git
+```
 ## 📦 Instalação dos pacotes Node.js
 
 ```bash
 npm init -y
 npm install express pg bcryptjs jsonwebtoken body-parser dotenv cors
 ```
-
 ---
-
-## 📦 Instalação
-
-### 1. Clone o repositório:
-```bash
-git clone https://github.com/CaioRodrigoCEVDEV/MyAPI.git
-```
-
 # 📦 Estrutura do Banco de Dados
 
 Este repositório contém a definição de um banco de dados PostgreSQL com três tabelas principais: `usu`, `tc` e `doc`, além de uma `SEQUENCE` utilizada para geração automática de IDs na tabela `doc`.
