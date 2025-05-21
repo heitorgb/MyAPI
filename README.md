@@ -25,13 +25,13 @@ Sistema web para controle financeiro pessoal com login e senha, onde o usuário 
 - cors (opcional para permitir requisições entre domínios)
 - dotenv
 
-# Instalação:
+# 📥 Instalação:
 
 ### 1. Clone o repositório:
 ```bash
 git clone https://github.com/CaioRodrigoCEVDEV/MyAPI.git
 ```
-### 2. 📦 Instalação dos pacotes Node.js
+### 2. Instalação dos pacotes Node.js
 
 ```bash
 npm init -y
