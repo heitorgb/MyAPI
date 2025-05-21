@@ -5,6 +5,17 @@ const app = express();
 const docRoutes = require('./routes/docRoutes');
 const tcRoutes = require('./routes/tcRoutes'); 
 const loginRoutes = require('./routes/loginRoute');
+const pool = require('./db/db');
+
+app.get('/teste-db', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT NOW()');
+    res.json({ status: 'Conectado ao PostgreSQL!', hora: result.rows[0].now });
+  } catch (err) {
+    console.error('Erro ao conectar:', err);
+    res.status(500).json({ error: 'Falha na conexão com o banco' });
+  }
+});
 
 app.use(cors());
 app.use(express.json());
