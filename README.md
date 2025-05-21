@@ -31,6 +31,16 @@ git clone https://github.com/CaioRodrigoCEVDEV/MyAPI.git
 npm init -y
 npm install express pg bcryptjs jsonwebtoken body-parser dotenv cors
 ```
+### 3. Crie um arquivo .env na raiz com o seguinte conteúdo:
+
+```bash
+DB_HOST= SEU_IP
+DB_PORT=PORTA
+DB_USER=USUARIO
+DB_PASSWORD=SENHA
+DB_NAME=BASE_DADOS
+
+```
 ---
 # 📦 Estrutura do Banco de Dados
 
