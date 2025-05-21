@@ -21,7 +21,7 @@ CREATE TABLE public.usu (
 
 ### 👤 Inserção de exemplo:
 ```sql
-INSERT INTO usu VALUES ('caiorodrigocev@gmail.com', md5('123'));
+INSERT INTO usu VALUES ('email@mail.com', md5('123'));
 ```
 
 ### 🔐 Permissões:
