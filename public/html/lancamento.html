@@ -154,6 +154,7 @@
                     .then(resposta => {
                         alert("Dados salvos com sucesso!");
                         console.log(resposta);
+                        location.reload();
                     })
                     .catch(erro => {
                         alert("Erro ao salvar os dados.");
