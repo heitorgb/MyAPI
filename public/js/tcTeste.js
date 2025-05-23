@@ -23,21 +23,32 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(erro => console.error(erro));
 
     // Função para deletar um registro
-    window.deletar = function (id) {
-        fetch(`http://localhost:3000/tc/${id}`, {
-            method: "DELETE"
-        })
-            .then(res => res.json())
-            .then(resposta => {
-                alert("Registro deletado com sucesso!");
-                // Atualiza a tabela após a exclusão
-                document.getElementById("corpoTabela").innerHTML = "";
-                location.reload();
-            })
-            .catch(erro => {
-                alert("Erro ao deletar o registro.");
-                console.error(erro);
+    window.deletar = async function (id) {
+        try {
+            // Verifica se existe algum registro na doc com doctccod igual ao id
+            const docRes = await fetch(`http://localhost:3000/doc?doctccod=${id}`);
+            const docData = await docRes.json();
+
+            // Filtra apenas os documentos que possuem o doctccod igual ao id
+            const vinculados = Array.isArray(docData)
+                ? docData.filter(doc => doc.doctccod == id)
+                : [];
+
+            if (vinculados.length > 0) {
+                alert("Não é possível excluir: existem documentos vinculados a este registro.");
+                return;
+            }
+
+            // Se não existir, pode deletar
+            await fetch(`http://localhost:3000/tc/${id}`, {
+                method: "DELETE"
             });
+            alert("Registro deletado com sucesso!");
+            location.reload();
+        } catch (erro) {
+            alert("Erro ao deletar o registro.");
+            console.error(erro);
+        }
     };
     // Função para editar um registro direto na tabela pois o botão de editar está na tabela    
     window.editar = function (id) {
