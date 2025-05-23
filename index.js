@@ -5,6 +5,8 @@ const app = express();
 const docRoutes = require('./routes/docRoutes');
 const tcRoutes = require('./routes/tcRoutes'); 
 const loginRoutes = require('./routes/loginRoute');
+const contaRoutes = require('./routes/contaRoutes');
+const contaTipoRoutes = require('./routes/contaTipoRoutes');
 const pool = require('./db/db');
 
 app.get('/teste-db', async (req, res) => {
@@ -21,6 +23,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(contaTipoRoutes);
+app.use(contaRoutes);
 app.use(docRoutes);
 app.use(tcRoutes);
 app.use('/',loginRoutes);
@@ -50,6 +54,9 @@ app.get('/page',(req,res)  => {
 
 app.get('/cobranca',(req,res)  => {
     res.sendFile(__dirname + '/public/html/cobranca.html')
+});
+app.get('/contas',(req,res)  => {
+    res.sendFile(__dirname + '/public/html/conta.html')
 });
 app.get('/pagina_em_branco',(req,res)  => {
     res.sendFile(__dirname + '/public/html/pagina-branco.html')
