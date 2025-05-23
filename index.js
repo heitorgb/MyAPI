@@ -51,8 +51,11 @@ app.get('/page',(req,res)  => {
 app.get('/cobranca',(req,res)  => {
     res.sendFile(__dirname + '/public/html/cobranca.html')
 });
+app.get('/pagina_em_branco',(req,res)  => {
+    res.sendFile(__dirname + '/public/html/pagina-branco.html')
+});
 
 app.listen(3000, () => {
-    console.log('Servidor rodando na porta http://127.0.0.1:3000/login');
+    console.log('Servidor rodando na porta http://127.0.0.1:3000/dash');
 });
 

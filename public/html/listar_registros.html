@@ -2,39 +2,52 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Registros</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="../css/styles.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Ulife UCtrl</title>
+    <link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon">
+    <link href="../css/styles-bootstrap.css" rel="stylesheet" />
+    <!--Fonte de icones \v/-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet" />
+    <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet" />
+    <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet" />
+    <link href="/your-path-to-fontawesome/css/sharp-thin.css" rel="stylesheet" />
+    <link href="/your-path-to-fontawesome/css/duotone-thin.css" rel="stylesheet" />
+    <link href="/your-path-to-fontawesome/css/sharp-duotone-thin.css" rel="stylesheet" />
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-medium-blue-rgb">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="dash">Start Bootstrap</a>
+        <a class="navbar-brand ps-3" href="dash">
+            <img src="../img/logo-tamanho-normal.png" width="30" height="30" alt="">
+            Ulife UCtrl
+        </a>
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-                class="fas fa-bars"></i></button>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+            <i class="fas fa-bars"></i>
+        </button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                <input class="form-control" type="text" placeholder="Buscar..." aria-label="Search for..."
                     aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
-                        class="fas fa-search"></i></button>
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
             </div>
         </form>
-        <!-- Navbar-->
+        <!-- Navbar esquerda usuario configs-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Configurações</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
@@ -43,161 +56,229 @@
             </li>
         </ul>
     </nav>
-
-
-    <div id="layoutSidenav_content" class="container">
-        <div id="layoutSidenav_nav">
-            <h1 class="card-header">Meus Lançamentos</h1>
-            <!-- <h2>Registros de Entrada, Saída e Almoço</h2> -->
-            <a href="dash"><button id="btnVoltar" class="btn btn-primary" type="submit">Voltar</button> </a>
-            <button id="btnMostrar" class="btn btn-success" type="submit">Buscar</button>
-            <button id="btnDeleteAll" class="btn btn-danger">Apagar Tudo</button>
-            <table class="table table-bordered mt-3">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Cobrança</th>
-                        <th>Valor</th>
-                        <th>Observações</th>
-                    </tr>
-                </thead>
-                <tbody id="corpoTabela">
-                </tbody>
-            </table>
-
-            <!-- Paginação -->
-            <div>
-                <ul class="pagination justify-content-center">
-
-                    <!-- Botão "Anterior" -->
-                    <li class="page-item ">
-                        <a class="page-link" href="">Anterior</a>
-                    </li>
-
-                    <!-- Números das páginas -->
-
-                    <li class="page-item ">
-                        <a class="page-link" href="">
-
-                        </a>
-                    </li>
-
-
-                    <!-- Botão "Próximo" -->
-                    <li class="page-item">
-                        <a class="page-link" href="">Próximo</a>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <nav class="sb-sidenav accordion sb-sidenav-dark-blue text-light" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <div class="sb-sidenav-menu-heading">Navegação</div>
                         <a class="nav-link" href="dash">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
+                            <div class="sb-nav-link-icon ">
+                                <i class="fa-sharp-duotone fa-solid fa-chart-line"></i>
+                            </div>
+                            Visão Geral
                         </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+
+                        <a class="nav-link collapsed" href="page" data-bs-toggle="collapse"
                             data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Layouts
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            <div class="sb-nav-link-icon">
+                                <i class="fa-solid fa-square-plus"></i>
+                            </div>
+                            Novo Registro
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                <a class="nav-link" href="cobranca">Transações</a>
+                                <a class="nav-link" href="lancamento"> Lançamentos</a>
                             </nav>
                         </div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
-                            aria-expanded="false" aria-controls="collapsePages">
-                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Pages
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        <a class="nav-link collapsed" href="page" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon">
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                            Acompanhamento
+                            <div class="sb-sidenav-collapse-arrow">
+                                <i class="fas fa-angle-down"></i>
+                            </div>
                         </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                    data-bs-target="#pagesCollapseAuth" aria-expanded="false"
-                                    aria-controls="pagesCollapseAuth">
-                                    Authentication
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
-                                    data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="login.html">Login</a>
-                                        <a class="nav-link" href="register.html">Register</a>
-                                        <a class="nav-link" href="password.html">Forgot Password</a>
-                                    </nav>
-                                </div>
-                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                                    data-bs-target="#pagesCollapseError" aria-expanded="false"
-                                    aria-controls="pagesCollapseError">
-                                    Error
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
-                                    data-bs-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="401.html">401 Page</a>
-                                        <a class="nav-link" href="404.html">404 Page</a>
-                                        <a class="nav-link" href="500.html">500 Page</a>
-                                    </nav>
-                                </div>
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="listar_registros">Lista de Registros</a>
+                                <a class="nav-link" href="pagina_em_branco">Pagina em branco</a>
                             </nav>
                         </div>
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
-                        </a>
+
+
                     </div>
                 </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                <div class="sb-sidenav-footer sb-sidenav-light-blue">
+                    <p class="text-center" font-size="0.1rem" !important>Copyright &copy; MTTR Developers</p>
+                    <P class="text-center">
+
+                        <a href="#">Politica de Privacidade</a>
+                        <a href="#">Termos &amp; Condições</a>
+                    </P>
                 </div>
             </nav>
-
         </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="row">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h3> <i class="fa-solid fa-list-ul"></i></i>Listar Registros</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <!-- <h2>Registros de Entrada, Saída e Almoço</h2> -->
+                        <a href="dash"><button id="btnVoltar" class="btn btn-primary" type="submit">Voltar</button> </a>
+                        <button id="btnMostrar" class="btn btn-success" type="submit">Buscar</button>
+                        <button id="btnDeleteAll" class="btn btn-danger">Apagar Tudo</button>
+                        <table class="table table-bordered mt-3">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Cobrança</th>
+                                    <th>Valor</th>
+                                    <th>Observações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="corpoTabela">
+                            </tbody>
+                        </table>
 
+                        <!-- Paginação -->
+                        <div>
+                            <ul class="pagination justify-content-center">
+                                <!-- Botão "Anterior" -->
+                                <li class="page-item ">
+                                    <a class="page-link" href="">Anterior</a>
+                                </li>
+                                <!-- Números das páginas -->
+                                <li class="page-item ">
+                                    <a class="page-link" href="">
+                                    </a>
+                                </li>
+                                <!-- Botão "Próximo" -->
+                                <li class="page-item">
+                                    <a class="page-link" href="">Próximo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        </div>
     </div>
 
 
+    </main>
+
+    </div>
+    </div>
+    <!--Nossos Scripts-->
+    <script src="../js/tcTeste.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("http://localhost:3000/doc")
+                .then(res => res.json())
+                .then(dados => {
+                    const corpoTabela = document.getElementById("corpoTabela");
+                    corpoTabela.innerHTML = ""; // Limpa o conteúdo atual da tabela
+
+                    dados.forEach(dado => {
+                        const tr = document.createElement("tr");
+                        tr.innerHTML = `
+                        <td>${dado.doccod}</td>
+                        <td>${dado.docv}</td>
+                        <td>${dado.doctccod}</td>
+                        <td>${dado.doctipo}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" onclick="deletar(${dado.doccod})">Deletar</button>
+                        </td>
+
+                    `;
+                        corpoTabela.appendChild(tr);
+                    });
+                })
+                .catch(erro => console.error(erro));
+        });
+
+        // Deletar
+        window.deletar = function (id) {
+            fetch(`http://localhost:3000/doc/${id}`, {
+                method: "DELETE"
+            })
+                .then(res => res.json())
+                .then(resposta => {
+                    alert("Registro deletado com sucesso!");
+                    // Atualiza a tabela após a exclusão
+                    document.getElementById("corpoTabela").innerHTML = "";
+                    location.reload();
+                })
+                .catch(erro => {
+                    alert("Erro ao deletar o registro.");
+                    console.error(erro);
+                });
+        };
 
 
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('http://localhost:3000/tc')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById("tipoConta");
+
+                    data.forEach(item => {
+                        const option = document.createElement("option");
+                        option.value = item.tccod;
+                        option.textContent = item.tcdes;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error("Erro ao carregar tipos de cobrança:", error);
+                });
+        });
+        // post
+        document.getElementById("meuFormulario").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            const data = Object.fromEntries(formData.entries());
+
+            fetch("http://localhost:3000/doc", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.json())
+                .then(resposta => {
+                    alert("Dados salvos com sucesso!");
+                    console.log(resposta);
+                    location.reload();
+                })
+                .catch(erro => {
+                    alert("Erro ao salvar os dados.");
+                    console.error(erro);
+                });
+        });
+
+    </script>
+    <!--Bootstrap Scripts-->
+    <script src="../js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-    <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
-    <script src="../../src/js/datatables-simple-demo.js"></script>
-    <script src="../js/deleteLanc.js"></script>
-    <script src="../js/getLancamentos.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!--Fim Bootstrap-->
+
+    <!--Demo dos graficos começo-->
+    <script src="../../dist/assets/demo/chart-area-demo.js"></script>
+    <script src="../../dist/assets/demo/chart-pie-demo.js"></script>
+    <!--Fim-->
+    <script src="../../src/js/datatables-simple-demo.js"></script><!--Organiza a tabela-->
+
 </body>
 
 </html>
