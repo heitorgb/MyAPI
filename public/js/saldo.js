@@ -1,0 +1,21 @@
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("http://localhost:3000/contaSaldo")
+        .then(res => res.json())
+        .then(dados => {
+            const saldo = document.getElementById("saldo");
+
+            if (dados.length > 0 && dados[0].saldo) {
+                const valor = parseFloat(dados[0].saldo);
+                saldo.innerText = valor.toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            } else {
+                saldo.innerText = "Indisponível";
+            }
+        })
+        .catch(erro => {
+            console.error("Erro ao buscar saldo:", erro);
+            document.getElementById("saldo").innerText = "Erro";
+        });
+});

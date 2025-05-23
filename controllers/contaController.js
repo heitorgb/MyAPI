@@ -67,3 +67,14 @@ exports.editarConta = async (req, res) => {
     }
 };
 
+
+
+exports.contaSaldo = async (req, res) => {
+    try {
+        const result = await pool.query('select sum(contavltotal) as saldo FROM conta');
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao buscar conta' });
+    }
+};
