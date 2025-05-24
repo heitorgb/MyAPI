@@ -1,11 +1,11 @@
 const pool = require('../db/db.js');
 
 exports.criarDoc = async (req, res) => {
-    const { docempparcod, doctipo ,docsta,docdsta,docv,doctccod,docnum,docobs } = req.body;
+    const { docempparcod, docnatcod ,docsta,docdsta,docv,doctccod,docnum,docobs,doccontacod } = req.body;
     try {
         const result = await pool.query(
-            'INSERT INTO doc (docempparcod, doctipo ,docsta,docdsta,docv,doctccod,docnum,docobs) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
-            [docempparcod, doctipo ,docsta,docdsta,docv,doctccod,docnum,docobs]
+            'INSERT INTO doc (docempparcod, docnatcod ,docsta,docdsta,docv,doctccod,docnum,docobs,doccontacod) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+            [docempparcod, docnatcod ,docsta,docdsta,docv,doctccod,docnum,docobs,doccontacod]
         );
         res.status(201).json(result.rows[0]);
     } catch (error) {
@@ -16,7 +16,7 @@ exports.criarDoc = async (req, res) => {
 
 exports.listarDocs = async (req, res) => {
     try {
-        const result = await pool.query('SELECT doccod, doctccod, doctipo, docv, docobs FROM doc');
+        const result = await pool.query('select doccod, tcdes, natdes, docv, docobs,contades from doc join natureza on natcod = docnatcod join tc on tccod = doctccod join conta on contacod = doccontacod');
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -49,7 +49,7 @@ exports.deletarTodos = async (req, res) => {
 
 exports.totalDocsDeb = async (_req, res) => {
     try {
-        const result = await pool.query('SELECT SUM(docv) as total FROM doc WHERE doctipo = $1', ['D']);
+        const result = await pool.query('SELECT SUM(docv) as total FROM doc WHERE docnatcod = $1', [1]);
         res.status(200).json(result.rows[0]);
     } catch (error) {
         console.error(error);
@@ -59,7 +59,7 @@ exports.totalDocsDeb = async (_req, res) => {
 
 exports.totalDocsCred = async (_req, res) => {
     try {
-        const result = await pool.query('SELECT SUM(docv) as total FROM doc WHERE doctipo = $1', ['C']);
+        const result = await pool.query('SELECT SUM(docv) as total FROM doc WHERE docnatcod = $1', [2]);
         res.status(200).json(result.rows[0]);
     } catch (error) {
         console.error(error);

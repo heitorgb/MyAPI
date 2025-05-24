@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
             dados.forEach(dado => {
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
-                        <td>${dado.tccod}</td>
                         <td>${dado.tcdes}</td>
                         <td>
                             <button class="btn btn-danger btn-sm" onclick="deletar(${dado.tccod})">Deletar</button>

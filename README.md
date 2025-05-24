@@ -124,13 +124,14 @@ Registra documentos de cobrança, com associação ao tipo de cobrança.
 CREATE TABLE public.doc (
   docempparcod int4 NOT NULL,
   doccod serial NOT NULL,
-  doctipo bpchar(3) NULL,
+  docnatcod int NULL,
   docsta bpchar(2) NULL,
   docdsta timestamp NULL,
-  docv numeric(14, 4) DEFAULT 0 NOT NULL,
+  docv numeric(14, 2) DEFAULT 0 NOT NULL,
   doctccod int4 NULL,
   docnum varchar(18) NULL,
   docobs bpchar(254) NULL,
+  doccontacod int,
   CONSTRAINT pk_doc PRIMARY KEY (docempparcod, doccod),
   CONSTRAINT fk_doc_tc FOREIGN KEY (doctccod) REFERENCES public.tc(tccod)
 );
@@ -253,6 +254,35 @@ insert into categoria (catdes,catsta) values ('Frelancer','R');
 
 ---
 
+## 💳 Tabela `natureza` (Natureza)
+
+Tabela com as Naturezas disponíveis no sistema.
+
+```sql
+create table public.categoria (
+	natcod serial,
+	natdes varchar,
+	CONSTRAINT pk_nat PRIMARY KEY (natcod,natdes)
+);
+```
+
+- **natcod**: Código da natureza (chave primária).
+- **natdes**: Descrição (ex: "Receita","Despesa").
+
+### ➕ Inserção OBRIGATÓRIA:
+```sql
+insert into natureza (natdes) values('Despesa');
+insert into natureza (natdes) values('Receita');
+
+```
+
+
+### 🔐 Permissões:
+- Dono: `postgres`
+- Permissões completas: `postgres`
+- Permissão de leitura: `consulta`
+
+---
 
 ## ✅ Consultas e Testes
 
