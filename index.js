@@ -7,6 +7,7 @@ const tcRoutes = require('./routes/tcRoutes');
 const loginRoutes = require('./routes/loginRoute');
 const contaRoutes = require('./routes/contaRoutes');
 const contaTipoRoutes = require('./routes/contaTipoRoutes');
+const categoriaController = require('./routes/categoriaRoutes');
 const pool = require('./db/db');
 
 app.get('/teste-db', async (req, res) => {
@@ -23,6 +24,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(categoriaController);
 app.use(contaTipoRoutes);
 app.use(contaRoutes);
 app.use(docRoutes);
