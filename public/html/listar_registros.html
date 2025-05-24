@@ -103,9 +103,26 @@
                                 <a class="nav-link" href="pagina_em_branco">Pagina em branco</a>
                             </nav>
                         </div>
-
-
+                        <a class="nav-link" href="contas">
+                            <div class="sb-nav-link-icon ">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            Contas
+                        </a>  
+                       <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon ">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            Categorias
+                        </a>   
+                       <a class="nav-link" href="cobranca">
+                            <div class="sb-nav-link-icon ">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            Tipos de Cobranças
+                        </a>     
                     </div>
+                    
                 </div>
                 <div class="sb-sidenav-footer sb-sidenav-light-blue">
                     <p class="text-center" font-size="0.1rem" !important>Copyright &copy; MTTR Developers</p>
@@ -135,7 +152,7 @@
                         <table class="table table-bordered mt-3">
                             <thead>
                                 <tr>
-                                    <th>id</th>
+                                    <th>Natureza</th>
                                     <th>Cobrança</th>
                                     <th>Valor</th>
                                     <th>Observações</th>
@@ -174,7 +191,7 @@
     </div>
     </div>
     <!--Nossos Scripts-->
-    <script src="../js/tcTeste.js"></script>
+    <script src="../js/lancamentos.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             fetch("http://localhost:3000/doc")
@@ -186,10 +203,10 @@
                     dados.forEach(dado => {
                         const tr = document.createElement("tr");
                         tr.innerHTML = `
-                        <td>${dado.doccod}</td>
-                        <td>${dado.docv}</td>
-                        <td>${dado.doctccod}</td>
-                        <td>${dado.doctipo}</td>
+                        <td>${dado.natdes}</td>
+                        <td>${dado.tcdes}</td>
+                        <td>${dado.docv}</td>                        
+                        <td>${dado.docobs}</td>
                         <td>
                             <button class="btn btn-danger btn-sm" onclick="deletar(${dado.doccod})">Deletar</button>
                         </td>
