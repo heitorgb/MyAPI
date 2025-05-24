@@ -156,6 +156,71 @@ INSERT INTO doc (docempparcod, docv, doctccod) VALUES (1, 100.00, 1);
 - Permissões completas: `postgres`
 - Permissão de leitura: `consulta`
 
+---
+
+## 💳 Tabela `contatipo` (Tipos da conta)
+
+Tabela com os tipos da conta disponíveis no sistema.
+
+```sql
+create table public.contatipo (
+	contatipocod serial,
+	contatipodes varchar,
+	CONSTRAINT pk_contatipo PRIMARY KEY (contatipocod)
+);
+
+```
+
+- **contatipocod**: Código do tipo de cobrança (chave primária).
+- **contatipodes**: Descrição (ex: "DINHEIRO","CONTA CORRENTE","INVESTIMENTOS").
+
+
+
+### ➕ Inserção de OBRIGATÓRIA:
+```sql
+insert into contatipo (contatipodes) values ('Dinheiro');
+insert into contatipo (contatipodes) values ('Conta Corrente');
+insert into contatipo (contatipodes) values ('Conta Poupança');
+insert into contatipo (contatipodes) values ('Investimento');
+insert into contatipo (contatipodes) values ('Outro');
+
+```
+
+### 🔐 Permissões:
+- Dono: `postgres`
+- Permissões completas: `postgres`
+- Permissão de leitura: `consulta`
+
+---
+
+## 💳 Tabela `conta` (Contas)
+
+Tabela com as contas disponíveis no sistema.
+
+```sql
+create table public.conta (
+	contacod serial,
+	contades varchar,
+	contatipo int,
+	contavltotal numeric(14, 2),
+	CONSTRAINT pk_conta PRIMARY KEY (contacod),
+	CONSTRAINT fk_contatipo FOREIGN KEY (contatipo) REFERENCES public.contatipo(contatipocod)
+);
+```
+
+- **contacod**: Código da conta (chave primária).
+- **contades**: Descrição (ex: "CAIXA","CARTEIRA","BANCO INTER").
+- **contatipo**: Tipo da conta (ex: "1","2","3","4" ou "5").
+- **contavltotal**: Saldo total da conta (ex: "36000.00").
+
+
+### 🔐 Permissões:
+- Dono: `postgres`
+- Permissões completas: `postgres`
+- Permissão de leitura: `consulta`
+
+---
+
 
 ## ✅ Consultas e Testes
 
