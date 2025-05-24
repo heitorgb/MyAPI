@@ -171,19 +171,18 @@ create table public.contatipo (
 
 ```
 
-- **contatipocod**: Código do tipo de cobrança (chave primária).
+- **contatipocod**: Código do tipo da conta (chave primária).
 - **contatipodes**: Descrição (ex: "DINHEIRO","CONTA CORRENTE","INVESTIMENTOS").
 
 
 
-### ➕ Inserção de OBRIGATÓRIA:
+### ➕ Inserção OBRIGATÓRIA:
 ```sql
 insert into contatipo (contatipodes) values ('Dinheiro');
 insert into contatipo (contatipodes) values ('Conta Corrente');
 insert into contatipo (contatipodes) values ('Conta Poupança');
 insert into contatipo (contatipodes) values ('Investimento');
 insert into contatipo (contatipodes) values ('Outro');
-
 ```
 
 ### 🔐 Permissões:
