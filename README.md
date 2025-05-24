@@ -220,6 +220,39 @@ create table public.conta (
 
 ---
 
+## 💳 Tabela `categoria` (Categorias)
+
+Tabela com as Categorias disponíveis no sistema.
+
+```sql
+create table public.categoria (
+	catcod serial,
+	catdes varchar,
+	catsta character,
+	CONSTRAINT pk_cat PRIMARY KEY (catcod,catsta)
+);
+```
+
+- **catcod**: Código da categoria (chave primária).
+- **catdes**: Descrição (ex: "Transporte","Salario","Mercado").
+- **catsta**: Status da categoria R ou D (ex: "Receita" ou "Despesa").
+
+### ➕ Inserção de exemplo:
+```sql
+insert into categoria (catdes,catsta) values ('Salário','R');
+insert into categoria (catdes,catsta) values ('Transporte','D');
+insert into categoria (catdes,catsta) values ('Mercado','D');
+insert into categoria (catdes,catsta) values ('Frelancer','R');
+```
+
+
+### 🔐 Permissões:
+- Dono: `postgres`
+- Permissões completas: `postgres`
+- Permissão de leitura: `consulta`
+
+---
+
 
 ## ✅ Consultas e Testes
 
