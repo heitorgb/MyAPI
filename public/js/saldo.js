@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://localhost:3000/contaSaldo")
+    fetch("http://localhost:3000/contaSaldo",{
+        method: 'GET',
+        credentials: 'include'
+    })
         .then(res => res.json())
         .then(dados => {
             const saldo = document.getElementById("saldo");
