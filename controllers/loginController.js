@@ -24,6 +24,7 @@ exports.cadastrarlogin = async (req, res) => {
 
 
 const crypto = require('crypto'); // para gerar hash MD5 (igual ao que está no banco)
+const jwt = require('jsonwebtoken');
 
 exports.validarLogin = async (req, res) => {
     const { usuemail, ususenha } = req.body;
@@ -45,7 +46,17 @@ exports.validarLogin = async (req, res) => {
         }
 
         // Se tudo ok, retorna sucesso
-        res.status(200).json({ mensagem: 'Login bem-sucedido' });
+
+        const token = jwt.sign({ usuemail}, 'chave-secreta', {expiresIn: '1h'});
+
+        res.cookie('token',token,{
+            httpOnly: true,
+            secure: true,
+            sameSite: 'Strict',
+            maxAge: 3600000
+        });
+
+        res.status(200).json({ mensagem: 'Login bem-sucedido',token });
 
     } catch (error) {
         console.error(error);
