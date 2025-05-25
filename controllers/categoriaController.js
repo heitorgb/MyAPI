@@ -14,7 +14,7 @@ exports.InsertCategoria = async (req, res) => {
 exports.listarCategoriaReceita = async (req, res) => {
     try {
         const r = "R"
-        const result = await pool.query('select catcod,catdes,cattipo from categoria where cattipo = $1 ', [r]);
+        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 ', [r]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -36,7 +36,7 @@ exports.listarCat = async (req, res) => {
 exports.listarCategoriaDespesa = async (req, res) => {
     try {
         const d = "D"
-        const result = await pool.query('select catcod,catdes,cattipo from categoria where cattipo = $1 ', [d]);
+        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 ', [d]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);

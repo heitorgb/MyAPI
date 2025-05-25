@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>${dado.docv}</td>
                         <td>${dado.tcdes}</td>
                         <td>${dado.natdes}</td>
+                        <td>${dado.catdes}</td>
                         <td>${dado.contades}</td>
                         <td>${dado.docobs}</td> 
                         <td>${docsta}</td>                    
@@ -146,5 +147,28 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch((error) => {
       console.error("Erro ao carregar contas:", error);
+    });
+});
+// listagem de categorias
+document.addEventListener("DOMContentLoaded", function () {
+  fetch("http://localhost:3000/catTodos")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erro ao buscar os dados");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const select = document.getElementById("categoria");
+
+      data.forEach((categoria) => {
+        const option = document.createElement("option");
+        option.value = categoria.catcod;
+        option.textContent = `${categoria.catdes}`;
+        select.appendChild(option);
+      });
+    })
+    .catch((error) => {
+      console.error("Erro ao carregar categorias:", error);
     });
 });
