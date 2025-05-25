@@ -1,9 +1,9 @@
 const pool = require('../db/db.js');
 
 exports.InsertCategoria = async (req, res) => {
-    const { catdes,catsta } = req.body;
+    const { catdes,cattipo } = req.body;
     try {
-        const result = await pool.query('insert into categoria (catdes,catsta) values ($1, $2) RETURNING *', [catdes,catsta]);
+        const result = await pool.query('insert into categoria (catdes,cattipo) values ($1, $2) RETURNING *', [catdes,cattipo]);
         res.status(201).json(result.rows[0]);
     } catch (error) {
         console.error(error);
@@ -14,7 +14,18 @@ exports.InsertCategoria = async (req, res) => {
 exports.listarCategoriaReceita = async (req, res) => {
     try {
         const r = "R"
-        const result = await pool.query('select catcod,catdes,catsta from categoria where catsta = $1 ', [r]);
+        const result = await pool.query('select catcod,catdes,cattipo from categoria where cattipo = $1 ', [r]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao buscar categoria' });
+    }
+};
+
+exports.listarCat = async (req, res) => {
+    try {
+        const r = "R"
+        const result = await pool.query('select catcod,catdes,cattipo from categoria ');
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -25,7 +36,7 @@ exports.listarCategoriaReceita = async (req, res) => {
 exports.listarCategoriaDespesa = async (req, res) => {
     try {
         const d = "D"
-        const result = await pool.query('select catcod,catdes,catsta from categoria where catsta = $1 ', [d]);
+        const result = await pool.query('select catcod,catdes,cattipo from categoria where cattipo = $1 ', [d]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
