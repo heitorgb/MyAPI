@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         <td>${dado.catdes}</td>
                         <td>${tipo}</td>
                         <td>
-                            <button class="btn btn-danger btn-sm" onclick="deletar(${dado.catcod})">Editar</button>
-                            <button class="btn btn-warning btn-sm" onclick="deletar(${dado.catcod})">Deletar</button>
+                            <button class="btn btn-warning btn-sm" onclick="editar(${dado.catcod})">Editar</button>
+                            <button class="btn btn-danger btn-sm" onclick="deletar(${dado.catcod})">Deletar</button>
                         </td>
 
                     `;
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // delete
 window.deletar = function (id) {
-  fetch(`http://localhost:3000/categoria/${id}`, {
+  fetch(`http://localhost:3000/cat/${id}`, {
     method: "DELETE",
   })
     .then((res) => res.json())
@@ -44,11 +44,25 @@ window.deletar = function (id) {
 
 //editar
 window.editar = function (id) {
-  fetch(`http://localhost:3000/categoria/${id}`, {
+  // Exemplo: obtenha os novos valores do usuário (pode ser via prompt ou modal)
+  const novoCatDes = prompt("Digite a nova descrição da categoria:");
+  const novoCatTipo = prompt("Digite o novo tipo da categoria (R para Receita, D para Despesa):");
+
+  if (!novoCatDes || !novoCatTipo) {
+    alert("Descrição e tipo são obrigatórios para editar.");
+    return;
+  }
+
+  fetch(`http://localhost:3000/cat/${id}`, {
     method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      catdes: novoCatDes,
+      cattipo: novoCatTipo
+    }),
   })
     .then((res) => res.json())
-    .then((resposta) => {
+    .then(() => {
       alert("Registro editado com sucesso!");
       // Atualiza a tabela após a edição
       document.getElementById("corpoTabela").innerHTML = "";
