@@ -10,7 +10,8 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ usuemail, ususenha })
+      body: JSON.stringify({ usuemail, ususenha }),
+      credentials: 'include' 
     });
 
     const data = await response.json();

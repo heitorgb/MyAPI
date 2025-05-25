@@ -20,8 +20,13 @@ app.get('/teste-db', async (req, res) => {
     res.status(500).json({ error: 'Falha na conexão com o banco' });
   }
 });
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // o endereço do frontend
+  credentials: true                //  permite cookies!
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -35,38 +40,39 @@ app.use('/',loginRoutes);
 
 app.use(express.static('public/'));
 
+const autenticarToken = require('./src/middleware/authMiddleware');
 
 app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/public/html/login.html');
 });
 
-app.get('/dash',(req,res)  => {
+app.get('/dash',autenticarToken, (req,res)  => {
     res.sendFile(__dirname + '/public/html/dashboard.html')
 });
 
-app.get('/listar_registros',(req,res)  => {
+app.get('/listar_registros',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/listar_registros.html')
 });
 
-app.get('/lancamentos',(req,res)  => {
+app.get('/lancamentos',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/lancamento.html')
 });
 
-app.get('/page',(req,res)  => {
+app.get('/page',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/page.html')
 });
 
-app.get('/cobranca',(req,res)  => {
+app.get('/cobranca',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/cobranca.html')
 });
-app.get('/contas',(req,res)  => {
+app.get('/contas',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/conta.html')
 });
-app.get('/pagina_em_branco',(req,res)  => {
+app.get('/pagina_em_branco',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/pagina-branco.html')
 });
 
 app.listen(3000, () => {
-    console.log('Servidor rodando na porta http://127.0.0.1:3000/dash');
+    console.log('Servidor rodando na porta http://localhost:3000/login');
 });
 
