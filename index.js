@@ -59,11 +59,17 @@ app.get('/page',(req,res)  => {
 app.get('/cobranca',(req,res)  => {
     res.sendFile(__dirname + '/public/html/cobranca.html')
 });
+
 app.get('/contas',(req,res)  => {
     res.sendFile(__dirname + '/public/html/conta.html')
 });
+
 app.get('/pagina_em_branco',(req,res)  => {
     res.sendFile(__dirname + '/public/html/pagina-branco.html')
+});
+
+app.get('/categoria',(req,res)  => {
+    res.sendFile(__dirname + '/public/html/categoria.html')
 });
 
 app.listen(3000, () => {

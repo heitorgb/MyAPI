@@ -16,7 +16,7 @@ exports.criarDoc = async (req, res) => {
 
 exports.listarDocs = async (req, res) => {
     try {
-        const result = await pool.query('select doccod, tcdes, natdes, docv, docobs,contades from doc join natureza on natcod = docnatcod join tc on tccod = doctccod join conta on contacod = doccontacod');
+        const result = await pool.query('select doccod, docsta, tcdes, natdes, docv, docobs,contades from doc join natureza on natcod = docnatcod join tc on tccod = doctccod join conta on contacod = doccontacod');
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -47,22 +47,3 @@ exports.deletarTodos = async (req, res) => {
     }
 };
 
-exports.totalDocsDeb = async (_req, res) => {
-    try {
-        const result = await pool.query('SELECT SUM(docv) as total FROM doc WHERE docnatcod = $1', [1]);
-        res.status(200).json(result.rows[0]);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erro ao calcular o total de documentos' });
-    }
-}
-
-exports.totalDocsCred = async (_req, res) => {
-    try {
-        const result = await pool.query('SELECT SUM(docv) as total FROM doc WHERE docnatcod = $1', [2]);
-        res.status(200).json(result.rows[0]);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erro ao calcular o total de documentos' });
-    }
-}
