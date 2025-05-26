@@ -24,28 +24,53 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/doc")
-    .then((res) => res.json())
-    .then((dados) => {
-      const corpoTabela = document.getElementById("corpoTableDash");
-      corpoTabela.innerHTML = "";
+// document.addEventListener("DOMContentLoaded", function () {
+//   fetch("http://localhost:3000/doc")
+//     .then((res) => res.json())
+//     .then((dados) => {
+//       const corpoTabela = document.getElementById("corpoTableDash");
+//       corpoTabela.innerHTML = "";
 
-      dados.forEach((dado) => {
-        const docsta = dado.docsta === "LA" ? "Aberto" : "Pago";
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${dado.contades}</td>
-          <td>${dado.catdes}</td>
-          <td>${dado.docv}</td>
-          <td>${docsta}</td>
-        `;
-        corpoTabela.appendChild(tr);
-      });
+//       dados.forEach((dado) => {
+//         const docsta = dado.docsta === "LA" ? "Aberto" : "Pago";
+//         const tr = document.createElement("tr");
+//         tr.innerHTML = `
+//           <td>${dado.contades}</td>
+//           <td>${dado.catdes}</td>
+//           <td>${dado.docv}</td>
+//           <td>${docsta}</td>
+//         `;
+//         corpoTabela.appendChild(tr);
+//       });
 
-    })
-    .catch((erro) => console.error(erro));
-});
+//     })
+//     .catch((erro) => console.error(erro));
+// });
+
+// const datatablesSimple = document.getElementById('datatablesSimple');
+// let dataTable;
+
+// fetch('/doc')  // exemplo de chamada AJAX
+//   .then(response => response.json())
+//   .then(data => {
+//     const corpo = document.getElementById('corpoTableDash');
+//     corpo.innerHTML = ''; // limpa
+
+//     data.forEach(item => {
+//       const linha = `
+//         <tr>
+//           <td>${dado.contades}</td>
+//           <td>${dado.catdes}</td>
+//           <td>${dado.docv}</td>
+//           <td>${docsta}</td>
+//         </tr>`;
+//       corpo.innerHTML += linha;
+//     });
+
+//     // Agora inicializa
+//     dataTable = new simpleDatatables.DataTable(datatablesSimple);
+//   });
+
 
 
 
