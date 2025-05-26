@@ -29,9 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Deletar
 window.deletar = function (id) {
-  fetch(`http://localhost:3000/doc/${id}`, {
-    method: "DELETE",
-  })
+  fetch(`http://localhost:3000/doc/${id}`)
     .then((res) => res.json())
     .then((resposta) => {
       alert("Registro deletado com sucesso!");
@@ -63,6 +61,7 @@ document
 
     fetch("http://localhost:3000/doc", {
       method: "POST",
+      credentials: "include", // Inclui cookies na requisição
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
@@ -128,7 +127,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Quando o DOM estiver carregado listar as contas no options contas
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://127.0.0.1:3000/conta")
+  fetch("http://127.0.0.1:3000/conta",{
+    method: "GET",
+    credentials: "include", // Inclui cookies na requisição
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Erro ao buscar os dados");
@@ -151,7 +153,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 // listagem de categorias
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/catTodos")
+  fetch("http://localhost:3000/catTodos",{
+    method: "GET",
+    credentials: "include", // Inclui cookies na requisição
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Erro ao buscar os dados");

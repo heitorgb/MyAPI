@@ -27,10 +27,10 @@ const crypto = require('crypto'); // para gerar hash MD5 (igual ao que está no 
 const jwt = require('jsonwebtoken');
 
 exports.validarLogin = async (req, res) => {
-    const { usuemail, ususenha } = req.body;
+    const { usunome,usuemail, ususenha } = req.body;
 
     try {
-        const result = await pool.query('SELECT usuemail, ususenha FROM usu WHERE usuemail = $1', [usuemail]);
+        const result = await pool.query('SELECT usunome,usuemail, ususenha FROM usu WHERE usuemail = $1', [usuemail]);
 
         if (result.rows.length === 0) {
             return res.status(401).json({ mensagem: 'Usuário não encontrado' });
@@ -54,8 +54,13 @@ exports.validarLogin = async (req, res) => {
             secure: false,
             sameSite: 'Strict'
         });
+        res.cookie('usunome',usuario.usunome,{
+            httpOnly: true,
+            secure: false,
+            sameSite: 'Strict'
+        });
 
-        res.status(200).json({ mensagem: 'Login bem-sucedido',token });
+        res.status(200).json({ mensagem: 'Login bem-sucedido',token, usunome: usuario.usunome });
 
     } catch (error) {
         console.error(error);

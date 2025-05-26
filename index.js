@@ -72,15 +72,26 @@ app.get('/pagina_em_branco',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/pagina-branco.html')
 });
 
-app.get('/categoria',(req,res)  => {
+app.get('/categoria',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/categoria.html')
 });
-app.get('/sidebar', (req, res) => {
+app.get('/sidebar',autenticarToken, (req, res) => {
     res.sendFile(__dirname + '/public/html/sidebar.html');
 });
-app.get('/navbar', (req, res) => {
+app.get('/navbar',autenticarToken, (req, res) => {
     res.sendFile(__dirname + '/public/html/navbar.html');
 });
+
+
+app.get('/api/NomeUsuarioLogado', (req, res) => {
+  const nomeUsuario = req.cookies.usunome; // O cookie ainda pode ser lido no servidor
+  if (nomeUsuario) {
+    res.json({ nome: nomeUsuario });
+  } else {
+    res.status(401).json({ nome: null });
+  }
+});
+
 
 app.listen(3000, () => {
     console.log('Servidor rodando na porta http://localhost:3000/login');
