@@ -1,6 +1,11 @@
+var createError = require('http-errors');
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const app = express();
+var path = require('path');
+var logger = require('morgan');
+
+
 
 const docRoutes = require('./routes/docRoutes');
 const tcRoutes = require('./routes/tcRoutes'); 
@@ -11,6 +16,26 @@ const categoriaController = require('./routes/categoriaRoutes');
 const naturezaController = require('./routes/naturezaRoutes');
 const pool = require('./db/db');
 
+
+const app = express();
+//----------------------------------------------------------------
+// view engine setup arquivos PUG Tratamento de ERros de rotas
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+app.use(logger('dev'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+app.get('/teste', (req, res) => {
+  res.json({ message: 'Rota de teste funcionando!' });
+});
+
+
+
+//----------------------------------------------------------------
+
 app.get('/teste-db', async (req, res) => {
   try {
     const result = await pool.query('SELECT NOW()');
@@ -20,7 +45,7 @@ app.get('/teste-db', async (req, res) => {
     res.status(500).json({ error: 'Falha na conexão com o banco' });
   }
 });
-const cookieParser = require('cookie-parser');
+
 app.use(cookieParser());
 
 app.use(cors({
@@ -90,6 +115,25 @@ app.get('/api/NomeUsuarioLogado', (req, res) => {
   } else {
     res.status(401).json({ nome: null });
   }
+});
+
+
+
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 
