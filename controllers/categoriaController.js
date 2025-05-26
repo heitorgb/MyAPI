@@ -11,6 +11,17 @@ exports.InsertCategoria = async (req, res) => {
     }
 };
 
+
+exports.listarcatTodos = async (req, res) => {
+    try {
+        const result = await pool.query('select catcod,catdes,cattipo from categoria ');
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao buscar categoria' });
+    }
+};
+
 exports.listarCategoriaReceita = async (req, res) => {
     try {
         const r = "R"
