@@ -75,6 +75,12 @@ app.get('/pagina_em_branco',autenticarToken,(req,res)  => {
 app.get('/categoria',(req,res)  => {
     res.sendFile(__dirname + '/public/html/categoria.html')
 });
+app.get('/sidebar', (req, res) => {
+    res.sendFile(__dirname + '/public/html/sidebar.html');
+});
+app.get('/navbar', (req, res) => {
+    res.sendFile(__dirname + '/public/html/navbar.html');
+});
 
 app.listen(3000, () => {
     console.log('Servidor rodando na porta http://localhost:3000/login');
