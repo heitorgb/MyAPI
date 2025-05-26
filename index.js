@@ -66,6 +66,7 @@ app.use('/',loginRoutes);
 app.use(express.static('public/'));
 
 const autenticarToken = require('./src/middleware/authMiddleware');
+const { error } = require('console');
 
 app.get('/login', (req, res) => {
     res.sendFile(__dirname + '/public/html/login.html');
@@ -114,9 +115,9 @@ app.get('/navbar',autenticarToken, (req, res) => {
     res.sendFile(__dirname + '/public/html/navbar.html');
 });
 
-
+// Rota para obter o nome do usuário logado
 app.get('/api/NomeUsuarioLogado', (req, res) => {
-  const nomeUsuario = req.cookies.usunome; // O cookie ainda pode ser lido no servidor
+  const nomeUsuario = req.cookies.usunome; 
   if (nomeUsuario) {
     res.json({ nome: nomeUsuario });
   } else {
@@ -125,20 +126,30 @@ app.get('/api/NomeUsuarioLogado', (req, res) => {
 });
 
 
+// rota limpar o cookie de autenticação
+app.get('/auth/sair', (req, res) => {
+  const token_session = req.cookies.token;
+  if (token_session) {
+    res.clearCookie('usunome', { path: '/' });
+    res.clearCookie('token', { path: '/' });
+    res.json({ message: 'Logout realizado com sucesso.' });
+  } else {
+    res.status(401).json({ error: "erro ao sair" });
+  }
+});
 
 
-
-// catch 404 and forward to error handler
+// tratamento de erros
 app.use(function(req, res, next) {
   next(createError(404));
 });
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
+
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // renderiza a página de erro
   res.status(err.status || 500);
   res.render('error');
 });
