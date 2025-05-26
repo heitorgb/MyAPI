@@ -1,9 +1,25 @@
 window.addEventListener('DOMContentLoaded', event => {
-    // Simple-DataTables
-    // https://github.com/fiduswriter/Simple-DataTables/wiki
-
     const datatablesSimple = document.getElementById('datatablesSimple');
-    if (datatablesSimple) {
-        new simpleDatatables.DataTable(datatablesSimple);
-    }
+    let dataTable;
+
+fetch('/doc')  // exemplo de chamada AJAX
+  .then(response => response.json())
+  .then(data => {
+    const corpo = document.getElementById('corpoTableDash');
+    corpo.innerHTML = ''; // limpa
+
+    data.forEach(item => {
+      const linha = `
+        <tr>
+          <td>${dado.contades}</td>
+          <td>${dado.catdes}</td>
+          <td>${dado.docv}</td>
+          <td>${docsta}</td>
+        </tr>`;
+      corpo.innerHTML += linha;
+    });
+
+    // Agora inicializa
+    dataTable = new simpleDatatables.DataTable(datatablesSimple);
+  });
 });

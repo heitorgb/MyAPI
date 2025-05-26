@@ -75,6 +75,9 @@ app.get('/pagina_em_branco',autenticarToken,(req,res)  => {
 app.get('/categoria',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/categoria.html')
 });
+app.get('/nav',autenticarToken, (req, res) => {
+    res.sendFile(__dirname + '/public/html/nav.html');
+});
 app.get('/sidebar',autenticarToken, (req, res) => {
     res.sendFile(__dirname + '/public/html/sidebar.html');
 });
