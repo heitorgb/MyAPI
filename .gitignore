@@ -1,6 +1,14 @@
+# Node.js
+node_modules/
 .env
-package-lock.json
-node_modules
-# Logs
-logs
+dist/
+build/
+*.log
 npm-debug.log*
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
