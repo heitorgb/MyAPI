@@ -132,6 +132,7 @@ CREATE TABLE public.doc (
   docnum varchar(18) NULL,
   docobs bpchar(254) NULL,
   doccontacod int,
+  doccatcod int
   CONSTRAINT pk_doc PRIMARY KEY (docempparcod, doccod),
   CONSTRAINT fk_doc_tc FOREIGN KEY (doctccod) REFERENCES public.tc(tccod)
 );
@@ -146,6 +147,8 @@ CREATE TABLE public.doc (
 - **doctccod**: Código do tipo de cobrança (chave estrangeira para `tc`).
 - **docnum**: Número do documento.
 - **docobs**: Observações.
+- **doccontacod**: Código da conta.
+- **doccatcod**: Código da categoria.
 
 ### ➕ Inserção de exemplo:
 ```sql
@@ -229,7 +232,7 @@ Tabela com as Categorias disponíveis no sistema.
 create table public.categoria (
 	catcod serial,
 	catdes varchar,
-	catsta character,
+	cattipo character,
 	CONSTRAINT pk_cat PRIMARY KEY (catcod,catsta)
 );
 ```
