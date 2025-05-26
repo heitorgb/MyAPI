@@ -1,1 +1,6 @@
 .env
+package-lock.json
+node_modules
+# Logs
+logs
+npm-debug.log*
