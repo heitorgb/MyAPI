@@ -233,6 +233,7 @@ create table public.categoria (
 	catcod serial,
 	catdes varchar,
 	cattipo character,
+  catnatcod int,
 	CONSTRAINT pk_cat PRIMARY KEY (catcod,catsta)
 );
 ```
