@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 
 function autenticarToken(req, res, next) {
-    const token = req.cookies.token; // Pega o token do cookie
+    const token = req.cookies.token;
 
     if (!token) {
-        return res.status(401).json({ mensagem: 'Token não fornecido' });
+        return res.status(401).redirect('/login'); 
     }
 
     try {
@@ -12,7 +12,7 @@ function autenticarToken(req, res, next) {
         req.usuario = decoded; // Armazena dados decodificados para uso futuro
         next();
     } catch (err) {
-        return res.status(403).json({ mensagem: 'Token inválido ou expirado' });
+        return res.status(500).redirect('/login');
     }
 }
 
