@@ -79,8 +79,12 @@ app.get('/listar_registros',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/listar_registros.html')
 });
 
-app.get('/lancamentos',autenticarToken,(req,res)  => {
-    res.sendFile(__dirname + '/public/html/lancamento.html')
+app.get('/lancamento_receita',autenticarToken,(req,res)  => {
+    res.sendFile(__dirname + '/public/html/lancamento_receita.html')
+});
+
+app.get('/lancamento_despesa',autenticarToken,(req,res)  => {
+    res.sendFile(__dirname + '/public/html/lancamento_despesa.html')
 });
 
 app.get('/page',autenticarToken,(req,res)  => {
