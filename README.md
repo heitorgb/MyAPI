@@ -135,6 +135,7 @@ CREATE TABLE public.doc (
   doccatcod int
   CONSTRAINT pk_doc PRIMARY KEY (docempparcod, doccod),
   CONSTRAINT fk_doc_tc FOREIGN KEY (doctccod) REFERENCES public.tc(tccod)
+  CONSTRAINT fk_doc FOREIGN KEY (doccontacod) REFERENCES conta(contacod)
 );
 ```
 
