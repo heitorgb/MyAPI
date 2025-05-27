@@ -28,18 +28,19 @@
                     fetch(`http://localhost:3000/conta/${id}`, {
                         method: "DELETE"
                     })
-                        .then(res => res.json())
-                        .then(resposta => {
-                            alert("Registro deletado com sucesso!");
-                            // Atualiza a tabela após a exclusão
-                            document.getElementById("corpoTabela").innerHTML = "";
-                            location.reload();
+                        .then(res => {
+                            if (res.status === 200) {
+                                alert("Registro deletado com sucesso!");
+                                location.reload();
+                            } else if (res.status === 500) {
+                                alert("Existem registros vinculados a este item. Não é possível deletar.");
+                            }else {
+                                alert("Erro ao deletar o registro.");
+                            }
                         })
-                        .catch(erro => {
-                            alert("Erro ao deletar o registro.");
-                            console.error(erro);
-                        });
-                };
+                        
+                };         
+                
 
 
         document.addEventListener("DOMContentLoaded", function () {
