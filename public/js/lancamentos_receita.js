@@ -106,7 +106,7 @@ document
 
 // Quando o DOM estiver carregado listar as cobranças no options
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://127.0.0.1:3000/tc")
+  fetch("http://localhost:3000/tc")
     .then((response) => {
       if (!response.ok) {
         throw new Error("Erro ao buscar os dados");
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Quando o DOM estiver carregado listar as contas no options contas
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://127.0.0.1:3000/conta", {
+  fetch("http://localhost:3000/conta", {
     method: "GET",
     credentials: "include", // Inclui cookies na requisição
   })
