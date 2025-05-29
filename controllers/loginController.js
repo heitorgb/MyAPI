@@ -47,23 +47,25 @@ exports.validarLogin = async (req, res) => {
 
         // Se tudo ok, retorna sucesso
 
-        const token = jwt.sign({ usuemail}, 'chave-secreta', { expiresIn: '1m' });
+        const token = jwt.sign({ usuemail}, 'chave-secreta', { expiresIn: '10m' });
 
         res.cookie('token',token,{
             httpOnly: true,
             secure: false,
             sameSite: 'Strict',
-            maxAge: 1 * 60 * 1000
+            maxAge: 10 * 60 * 1000
         });
         res.cookie('usunome',usuario.usunome,{
             httpOnly: true,
             secure: false,
-            sameSite: 'Strict'
+            sameSite: 'Strict',
+            maxAge: 10 * 60 * 1000
         });
             res.cookie('usuemail',usuario.usuemail,{
             httpOnly: true,
             secure: false,
-            sameSite: 'Strict'
+            sameSite: 'Strict',
+            maxAge: 10 * 60 * 1000
         });
 
         res.status(200).json({ mensagem: 'Login bem-sucedido',token, usunome: usuario.usunome, usuemail: usuario.usuemail });
