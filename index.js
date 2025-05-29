@@ -114,6 +114,9 @@ app.get('/sidebar',autenticarToken, (req, res) => {
 app.get('/navbar',autenticarToken, (req, res) => {
     res.sendFile(__dirname + '/public/html/navbar.html');
 });
+app.get('/perfil',autenticarToken,(req,res)  => {
+    res.sendFile(__dirname + '/public/html/perfil.html')
+});
 
 // Rota para obter o nome do usuário logado
 app.get('/api/NomeUsuarioLogado', (req, res) => {
