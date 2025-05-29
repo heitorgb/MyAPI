@@ -314,3 +314,92 @@ As permissões foram definidas para garantir o controle de acesso:
 
 - O usuário `postgres` possui controle total.
 - O papel `consulta` possui acesso apenas de leitura.
+
+
+
+---
+
+## 🔐 Variáveis de Ambiente
+
+Exemplo `.env`:
+
+```env
+DB_HOST=
+DB_PORT=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+
+```
+
+---
+
+## 📚 Endpoints
+
+### 🔑 Login
+
+**POST** `/api/login`
+
+**Body:**
+```json
+{
+  "email": "user@email.com",
+  "password": "123456"
+}
+```
+
+**Resposta:**
+```json
+{
+  "token": "jwt_token"
+}
+```
+
+---
+
+### 👤 Criar Usuário
+
+**POST** `/api/users`
+
+**Body:**
+```json
+{
+  "name": "Nome Teste",
+  "email": "email@email.com",
+  "password": "123456"
+}
+```
+
+**Resposta:**
+```json
+{
+  "message": "Usuário criado com sucesso",
+  "user": {
+    "id": 1,
+    "name": "Nome Teste",
+    "email": "email@email.com"
+  }
+}
+```
+
+---
+
+### 🔒 Perfil do Usuário
+
+**GET** `/api/profile`
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Resposta:**
+```json
+{
+  "id": 1,
+  "name": "Nome Teste",
+  "email": "enail@email.com"
+}
+```
+
+---
