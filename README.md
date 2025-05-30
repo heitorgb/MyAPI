@@ -39,6 +39,7 @@ DB_PORT=PORTA
 DB_USER=USUARIO
 DB_PASSWORD=SENHA
 DB_NAME=BASE_DADOS
+BASE_URL=http://localhost:3000
 
 ```
 ---
@@ -54,12 +55,13 @@ Armazena os dados de login dos usuários do sistema.
 
 ```sql
 CREATE TABLE public.usu (
+  usucod serial,
   usuemail varchar(120) NULL,
   ususenha varchar(32) NULL,
   CONSTRAINT pk_usu PRIMARY KEY (usuemail)
 );
 ```
-
+- **usucod**  : Código do usuario (chave primária).
 - **usuemail**: E-mail do usuário (chave primária).
 - **ususenha**: Senha do usuário (armazenada como hash MD5, por exemplo).
 
