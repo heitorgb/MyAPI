@@ -129,6 +129,20 @@ app.get('/api/NomeUsuarioLogado', (req, res) => {
 });
 
 
+
+// Rota para obter o nome do usuário logado
+app.get('/api/dadosUserLogado', (req, res) => {
+  const nomeUsuario = req.cookies.usunome; 
+  const emailUsuario = req.cookies.usuemail;
+  if (nomeUsuario) {
+    res.json({ nome: nomeUsuario, email: emailUsuario });
+  } else {
+    res.status(401).json({ nome: null });
+  }
+});
+
+
+
 // rota limpar o cookie de autenticação
 app.get('/auth/sair', (req, res) => {
   const token_session = req.cookies.token;
