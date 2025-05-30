@@ -1,3 +1,4 @@
+
 document.getElementById('formLogin').addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -10,7 +11,7 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
   }, 2000);
 
   try {
-    const response = await fetch('http://localhost:3000/auth/login', {
+    const response = await fetch(`${BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -22,7 +23,7 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-      window.location.href = 'http://localhost:3000/dash';
+      window.location.href = `${BASE_URL}/dash`;
     } else {
       alert(data.mensagem || 'Email ou senha incorretos!');
     }

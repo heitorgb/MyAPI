@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/catTodos")
+  fetch(`${BASE_URL}/catTodos`)
     .then((res) => res.json())
     .then((dados) => {
       const corpoTabela = document.getElementById("corpoTabela");
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // delete
 window.deletar = function (id) {
-  fetch(`http://localhost:3000/cat/${id}`, {
+  fetch(`${BASE_URL}/cat/${id}`, {
     method: "DELETE",
   })
     .then((res) => res.json())
@@ -53,7 +53,7 @@ window.editar = function (id) {
     return;
   }
 
-  fetch(`http://localhost:3000/cat/${id}`, {
+  fetch(`${BASE_URL}/cat/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -85,7 +85,7 @@ document
 
     const data = Object.fromEntries(formData.entries());
  
-    fetch("http://localhost:3000/catInsert", {
+    fetch(`${BASE_URL}/catInsert`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

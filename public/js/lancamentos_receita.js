@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/doc/receitas")
+  fetch(`${BASE_URL}/doc/receitas`)
     .then((res) => res.json())
     .then((dados) => {
       const corpoTabela = document.getElementById("corpoTabela");
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Deletar
 window.deletar = function (id) {
-  fetch(`http://localhost:3000/doc/${id}`)
+  fetch(`${BASE_URL}/doc/${id}`)
     .then((res) => res.json())
     .then((resposta) => {
       alert("Registro deletado com sucesso!");
@@ -70,7 +70,7 @@ document
 
     // Buscar o código da natureza onde natdes = 'D'
     try {
-      const natRes = await fetch("http://localhost:3000/natureza/receita");
+      const natRes = await fetch(`${BASE_URL}/natureza/receita`);
       if (!natRes.ok) throw new Error("Erro ao buscar natureza");
       const natData = await natRes.json();
       // Supondo que o endpoint retorna um array de naturezas
@@ -85,7 +85,7 @@ document
       return;
     }
 
-    fetch("http://localhost:3000/doc", {
+    fetch(`${BASE_URL}/doc`, {
       method: "POST",
       credentials: "include", // Inclui cookies na requisição
       headers: { "Content-Type": "application/json" },
@@ -102,11 +102,9 @@ document
         console.error(erro);
       });
   });
-
-
 // Quando o DOM estiver carregado listar as cobranças no options
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/tc")
+  fetch(`${BASE_URL}/tc`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Erro ao buscar os dados");
@@ -130,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Quando o DOM estiver carregado listar as contas no options contas
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/conta", {
+  fetch(`${BASE_URL}/conta`, {
     method: "GET",
     credentials: "include", // Inclui cookies na requisição
   })
@@ -156,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 // listagem de categorias
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/catTodos", {
+  fetch(`${BASE_URL}/catTodos`, {
     method: "GET",
     credentials: "include", // Inclui cookies na requisição
   })

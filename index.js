@@ -1,12 +1,11 @@
+require('dotenv').config();
 var createError = require('http-errors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 var path = require('path');
 var logger = require('morgan');
-
-
-
+// Importando as rotas
 const docRoutes = require('./routes/docRoutes');
 const tcRoutes = require('./routes/tcRoutes'); 
 const loginRoutes = require('./routes/loginRoute');
@@ -15,10 +14,8 @@ const contaTipoRoutes = require('./routes/contaTipoRoutes');
 const categoriaController = require('./routes/categoriaRoutes');
 const naturezaController = require('./routes/naturezaRoutes');
 const pool = require('./db/db');
-
-
+// Importando o pool de conexão com o banco de dados
 const app = express();
-//----------------------------------------------------------------
 // view engine setup arquivos PUG Tratamento de ERros de rotas
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -26,16 +23,10 @@ app.use(logger('dev'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 app.get('/teste', (req, res) => {
   res.json({ message: 'Rota de teste funcionando!' });
 });
-
-
-
 //----------------------------------------------------------------
-
 app.get('/teste-db', async (req, res) => {
   try {
     const result = await pool.query('SELECT NOW()');
@@ -49,7 +40,7 @@ app.get('/teste-db', async (req, res) => {
 app.use(cookieParser());
 
 app.use(cors({
-  origin: 'http://localhost:3000', // o endereço do frontend
+  origin: process.env.BASE_URL, // o endereço do frontend
   credentials: true                //  permite cookies!
 }));
 app.use(express.json());
@@ -117,7 +108,11 @@ app.get('/navbar',autenticarToken, (req, res) => {
 app.get('/perfil',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/perfil.html')
 });
-
+// Rota para expor a variável BASE_URL para o navegador
+app.get('/config.js', (req, res) => {
+  res.type('application/javascript');
+  res.send(`const BASE_URL = '${process.env.BASE_URL}';`);
+});
 // Rota para obter o nome do usuário logado
 app.get('/api/NomeUsuarioLogado', (req, res) => {
   const nomeUsuario = req.cookies.usunome; 
@@ -127,9 +122,6 @@ app.get('/api/NomeUsuarioLogado', (req, res) => {
     res.status(401).json({ nome: null });
   }
 });
-
-
-
 // Rota para obter o nome do usuário logado
 app.get('/api/dadosUserLogado', (req, res) => {
   const nomeUsuario = req.cookies.usunome; 
@@ -140,9 +132,6 @@ app.get('/api/dadosUserLogado', (req, res) => {
     res.status(401).json({ nome: null });
   }
 });
-
-
-
 // rota limpar o cookie de autenticação
 app.get('/auth/sair', (req, res) => {
   const token_session = req.cookies.token;
@@ -154,8 +143,6 @@ app.get('/auth/sair', (req, res) => {
     res.status(401).json({ error: "erro ao sair" });
   }
 });
-
-
 // tratamento de erros
 app.use(function(req, res, next) {
   next(createError(404));
@@ -171,8 +158,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
 app.listen(3000, () => {
-    console.log('Servidor rodando na porta http://localhost:3000/login');
+    console.log(`Servidor rodando na porta: ${process.env.BASE_URL}/login`);
 });
 

@@ -1,12 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/doc/despesas")
+  fetch(`${BASE_URL}/doc/despesas`)
     .then((res) => res.json())
     .then((dados) => {
       const corpoTabela = document.getElementById("corpoTabela");
       corpoTabela.innerHTML = ""; // Limpa o conteúdo atual da tabela
       // Não é necessário buscar por "td" por id, pois eles são criados dinamicamente.
       // Vamos colorir a linha inteira conforme o status
-
       dados.forEach((dado) => {
         const tr = document.createElement("tr");
         if (dado.docsta === "LA") {
@@ -37,10 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch((erro) => console.error(erro));
 });
-
 // Deletar
 window.deletar = function (id) {
-  fetch(`http://localhost:3000/doc/${id}`, {
+  fetch(`${BASE_URL}/doc/${id}`, {
     method: "DELETE",
     credentials: "include", // Inclui cookies na requisição, se necessário
     headers: { "Content-Type": "application/json" },
@@ -79,7 +77,7 @@ document
 
     // Buscar o código da natureza específica para 'Despesa'
     try {
-      const natRes = await fetch("http://localhost:3000/natureza/despesa");
+      const natRes = await fetch(`${BASE_URL}/natureza/despesa`);
       if (!natRes.ok) throw new Error("Erro ao buscar natureza");
       const natData = await natRes.json();
       // Supondo que o endpoint retorna um array de naturezas
@@ -93,7 +91,7 @@ document
       console.error(err);
       return;
     }
-    fetch("http://localhost:3000/doc", {
+    fetch(`${BASE_URL}/doc`, {
       method: "POST",
       credentials: "include", // Inclui cookies na requisição
       headers: { "Content-Type": "application/json" },
@@ -113,7 +111,7 @@ document
 
 // Quando o DOM estiver carregado listar as cobranças no options
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/tc")
+  fetch(`${BASE_URL}/tc`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Erro ao buscar os dados");
@@ -134,10 +132,9 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Erro ao carregar contas:", error);
     });
 });
-
 // Quando o DOM estiver carregado listar as contas no options contas
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/conta", {
+  fetch(`${BASE_URL}/conta`, {
     method: "GET",
     credentials: "include", // Inclui cookies na requisição
   })
@@ -163,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 // listagem de categorias
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:3000/catTodos", {
+  fetch(`${BASE_URL}/catTodos`, {
     method: "GET",
     credentials: "include", // Inclui cookies na requisição
   })

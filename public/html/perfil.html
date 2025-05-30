@@ -108,9 +108,10 @@
     <script src="../js/logout.js"></script>  
 
     <script>
+        require('dotenv').config();
         document.addEventListener("onclick", function (event) {
             if (event.target.id === "salvar") {
-                fatch("http://localhost:8080/auth/atualizarCadastro", {
+                fatch(`${process.env.BASE_URL}/auth/atualizarCadastro`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"

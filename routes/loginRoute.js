@@ -3,9 +3,9 @@ const router = express.Router();
 const loginController = require('../controllers/loginController');
 const autenticarToken = require('../src/middleware/authMiddleware');
 
-router.get('/auth/listarlogin', loginController.listarlogin);
-router.post('/auth/register', loginController.cadastrarlogin);
+router.get('/auth/listarlogin',autenticarToken, loginController.listarlogin);
+router.post('/auth/register',autenticarToken, loginController.cadastrarlogin);
 router.post('/auth/login', loginController.validarLogin);
-router.put('/auth/atualizarCadastro', loginController.atualizarCadastro);
+router.put('/auth/atualizarCadastro',autenticarToken, loginController.atualizarCadastro);
 module.exports = router;
 

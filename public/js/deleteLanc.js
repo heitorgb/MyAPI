@@ -1,11 +1,9 @@
 async function deleteLanc() {
-
-    // escuta o click do botão
     document.getElementById('btnDeleteAll').addEventListener('click', async (e) => {
       e.preventDefault();
   
       try {
-        const response = await fetch('http://localhost:3000/doc', {
+        const response = await fetch(`${BASE_URL}/doc`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json'

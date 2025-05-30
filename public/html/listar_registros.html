@@ -116,8 +116,9 @@
     <script src="../js/lancamentos.js"></script>
     <script src="../js/sidebar.js" ></script>
     <script>
+        require('dotenv').config();
         document.addEventListener("DOMContentLoaded", function () {
-            fetch("http://localhost:3000/doc")
+            fetch(`${process.env.BASE_URL}/doc`)
                 .then(res => res.json())
                 .then(dados => {
                     const corpoTabela = document.getElementById("corpoTabela");
@@ -143,7 +144,7 @@
 
         // Deletar
         window.deletar = function (id) {
-            fetch(`http://localhost:3000/doc/${id}`, {
+            fetch(`${process.env.BASE_URL}/doc/${id}`, {
                 method: "DELETE"
             })
                 .then(res => res.json())
@@ -161,7 +162,7 @@
 
 
         document.addEventListener("DOMContentLoaded", function () {
-            fetch('http://localhost:3000/tc')
+            fetch(`${process.env.BASE_URL}/tc`)
                 .then(response => response.json())
                 .then(data => {
                     const select = document.getElementById("tipoConta");
@@ -186,7 +187,7 @@
 
             const data = Object.fromEntries(formData.entries());
 
-            fetch("http://localhost:3000/doc", {
+            fetch(`${process.env.BASE_URL}/doc`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)

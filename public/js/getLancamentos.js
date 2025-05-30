@@ -1,6 +1,6 @@
 async function get() {
     try {
-      const resposta = await fetch('http://localhost:3000/doc/');
+      const resposta = await fetch(`${BASE_URL}/doc/`);
       const doc = await resposta.json();
 
       const corpoTabela = document.getElementById('corpoTabela');

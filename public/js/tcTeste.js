@@ -1,6 +1,5 @@
-// Função para buscar os dados do servidor e preencher a tabela
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://localhost:3000/tc")
+    fetch(`${BASE_URL}/tc`)
         .then(res => res.json())
         .then(dados => {
             const corpoTabela = document.getElementById("corpoTabela");
@@ -25,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.deletar = async function (id) {
         try {
             // Verifica se existe algum registro na doc com doctccod igual ao id
-            const docRes = await fetch(`http://localhost:3000/doc?doctccod=${id}`);
+            const docRes = await fetch(`${BASE_URL}/doc?doctccod=${id}`);
             const docData = await docRes.json();
 
             // Filtra apenas os documentos que possuem o doctccod igual ao id
@@ -39,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // Se não existir, pode deletar
-            await fetch(`http://localhost:3000/tc/${id}`, {
+            await fetch(`${BASE_URL}/tc/${id}`, {
                 method: "DELETE"
             });
             alert("Registro deletado com sucesso!");
@@ -68,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         function salvar() {
             const novaDescricao = input.value.trim();
             if (novaDescricao && novaDescricao !== valorAtual) {
-                fetch(`http://localhost:3000/tc/${id}`, {
+                fetch(`${BASE_URL}/tc/${id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ tcdes: novaDescricao })
@@ -98,20 +97,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         input.addEventListener("blur", salvar);
     };
-
-
 });
-
 // post
 document.getElementById("meuFormulario").addEventListener("submit", function (e) {
     e.preventDefault();
 
     const form = e.target;
     const formData = new FormData(form);
-
     const data = Object.fromEntries(formData.entries());
 
-    fetch("http://localhost:3000/tc", {
+    fetch(`${BASE_URL}/tc`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
