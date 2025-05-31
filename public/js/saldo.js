@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch(`${BASE_URL}/contaSaldo`,{
-        method: 'GET',
-        credentials: 'include'
+      fetch('/api/dadosUserLogado')
+    .then(res => res.json())
+    .then(dados => {
+      
+      return fetch(`${BASE_URL}/contaSaldo/${dados.usucod}`)
     })
         .then(res => res.json())
         .then(dados => {

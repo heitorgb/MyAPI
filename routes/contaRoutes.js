@@ -4,7 +4,8 @@ const contaController = require('../controllers/contaController');
 const autenticarToken = require('../src/middleware/authMiddleware');
 
 router.get('/conta', autenticarToken,contaController.listarContas);
-router.get('/contaSaldo', autenticarToken,contaController.contaSaldo);
+router.get('/conta/:id', autenticarToken,contaController.listarContasUser);
+router.get('/contaSaldo/:id', autenticarToken,contaController.contaSaldo);
 router.post('/conta', autenticarToken,contaController.Insertconta);
 router.delete('/conta/:id', autenticarToken,contaController.deletarConta);
 router.put('/conta/:id', autenticarToken,contaController.editarConta);

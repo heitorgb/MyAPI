@@ -1,5 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-fetch(`${BASE_URL}/conta`)
+  fetch('/api/dadosUserLogado')
+    .then(res => res.json())
+    .then(dados => {
+      
+      return fetch(`${BASE_URL}/conta/${dados.usucod}`)
+    })
     .then(res => res.json())
     .then(dados => {
         const corpoTabela = document.getElementById("corpoTabela");
