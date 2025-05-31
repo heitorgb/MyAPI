@@ -6,7 +6,12 @@ Chart.defaults.global.defaultFontColor = "#292b2c";
 // Pie Chart Example
 var ctxRec = document.getElementById("myPieChartRec");
 
-fetch("/catReceita")
+fetch('/api/dadosUserLogado')
+    .then(res => res.json())
+    .then(dados => {
+      
+      return fetch(`${BASE_URL}/catReceita/${dados.usucod}`)
+    })
   .then((response) => response.json())
   .then((data) => {
     // como a resposta é um array de objetos, eu precisei mapear os dados para ter o array de labels e valores

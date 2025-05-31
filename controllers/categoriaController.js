@@ -50,9 +50,10 @@ exports.listarcatTodosDespesa = async (req, res) => {
 
 
 exports.listarCategoriaReceita = async (req, res) => {
+    const { id } = req.params;
     try {
         const r = "R"
-        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 ', [r]);
+        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 and catusucod = $2', [r,id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -72,9 +73,10 @@ exports.listarCat = async (req, res) => {
 };
 
 exports.listarCategoriaDespesa = async (req, res) => {
+    const { id } = req.params;
     try {
         const d = "D"
-        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 ', [d]);
+        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 and catusucod = $2', [d,id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);

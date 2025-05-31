@@ -6,7 +6,12 @@ Chart.defaults.global.defaultFontColor = "#292b2c";
 // Pie Chart Example
 var ctxDep = document.getElementById("myPieChartDep");
 
-fetch("/catDespesa")
+fetch('/api/dadosUserLogado')
+    .then(res => res.json())
+    .then(dados => {
+      
+      return fetch(`${BASE_URL}/catDespesa/${dados.usucod}`)
+    })
   .then((response) => response.json())
   .then((data) => {
     // Garante que os valores são números para correta formatação
