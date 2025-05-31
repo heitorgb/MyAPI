@@ -323,27 +323,20 @@ As permissões foram definidas para garantir o controle de acesso:
 
 ```sql
 CREATE OR REPLACE VIEW public.vw_saldo
-AS SELECT sum(saldo) AS saldo,
-    usu
-   FROM ( SELECT sum(
-                CASE
-                    WHEN conta.contavltotal IS NULL THEN 0::numeric
-                    ELSE conta.contavltotal
-                END) AS saldo,
-            conta.contausucod AS usu
-           FROM conta
-          GROUP BY conta.contavltotal, conta.contausucod
-        UNION
-         SELECT sum(
-                CASE
-                    WHEN doc.docv IS NULL THEN 0::numeric
-                    ELSE doc.docv
-                END) AS saldo,
-            doc.docusucod AS usu
-           FROM conta
-             LEFT JOIN doc ON doc.doccontacod = conta.contacod
-          GROUP BY doc.docv, doc.docusucod) unnamed_subquery
-  GROUP BY usu;
+AS SELECT usu,
+    conta_saldo + credito - debito AS saldo_final
+   FROM ( SELECT c.contausucod AS usu,
+            COALESCE(sum(c.contavltotal), 0::numeric) AS conta_saldo,
+            ( SELECT COALESCE(sum(d.docv), 0::numeric) AS "coalesce"
+                   FROM doc d
+                     JOIN conta c2 ON d.doccontacod = c2.contacod
+                  WHERE d.docusucod = c2.contausucod AND COALESCE(d.docnatcod, 0) = 2) AS credito,
+            ( SELECT COALESCE(sum(d.docv), 0::numeric) AS "coalesce"
+                   FROM doc d
+                     JOIN conta c2 ON d.doccontacod = c2.contacod
+                  WHERE d.docusucod = c2.contausucod AND COALESCE(d.docnatcod, 0) = 1) AS debito
+           FROM conta c
+          GROUP BY c.contausucod) saldo_geral;
 
 -- Permissions
 
