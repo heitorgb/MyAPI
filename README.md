@@ -124,7 +124,7 @@ Registra documentos de cobrança, com associação ao tipo de cobrança.
 
 ```sql
 CREATE TABLE public.doc (
-  docempparcod int4 NOT NULL,
+  docusucod int4 NOT NULL,
   doccod serial NOT NULL,
   docnatcod int NULL,
   docsta bpchar(2) NULL,
@@ -331,6 +331,7 @@ DB_PORT=
 DB_USER=
 DB_PASSWORD=
 DB_NAME=
+BASE_URL=
 
 ```
 

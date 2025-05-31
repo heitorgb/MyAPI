@@ -38,9 +38,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Deletar
 window.deletar = function (id) {
-  fetch(`${BASE_URL}/doc/${id}`)
-    .then((res) => res.json())
-    .then((resposta) => {
+  fetch(`${BASE_URL}/doc/${id}`, {
+    method: "DELETE",
+    credentials: "include", // Inclui cookies na requisição, se necessário
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error("Erro ao deletar o registro.");
+      return res.json();
+    })
+    .then(() => {
       alert("Registro deletado com sucesso!");
       // Atualiza a tabela após a exclusão
       document.getElementById("corpoTabela").innerHTML = "";
