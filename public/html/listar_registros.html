@@ -55,26 +55,29 @@
                 <div class="row">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h3> <i class="fa-solid fa-list-ul"></i></i>Listar Registros</h3>
+                            <h3> <i class="fa-solid fa-list-ul"></i></i>Extrato de movimentação</h3>
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <!-- <h2>Registros de Entrada, Saída e Almoço</h2> -->
-                        <a href="dash"><button id="btnVoltar" class="btn btn-primary" type="submit">Voltar</button> </a>
-                        <button id="btnMostrar" class="btn btn-success" type="submit">Buscar</button>
-                        <button id="btnDeleteAll" class="btn btn-danger">Apagar Tudo</button>
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th>Id</th>
+                                    <th>Status</th>
+                                    <th>Cob</th>
                                     <th>Natureza</th>
-                                    <th>Cobrança</th>
                                     <th>Valor</th>
-                                    <th>Observações</th>
+                                    <th>Obs</th>
                                 </tr>
                             </thead>
                             <tbody id="corpoTabela">
+                                <!-- Os dados serão inseridos aqui dinamicamente -->
+                                <!-- Exemplo de linha de tabela -->
+                                 <tr>
+                                    
+                                </tr>
                             </tbody>
                         </table>
 
@@ -107,98 +110,9 @@
     </div>
     </div>
     <!--Nossos Scripts-->
-    <script src="../js/lancamentos.js"></script>
+    <script src="/config.js"></script>
     <script src="../js/sidebar.js" ></script>
-    <script>
-        require('dotenv').config();
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch(`${process.env.BASE_URL}/doc`)
-                .then(res => res.json())
-                .then(dados => {
-                    const corpoTabela = document.getElementById("corpoTabela");
-                    corpoTabela.innerHTML = ""; // Limpa o conteúdo atual da tabela
-
-                    dados.forEach(dado => {
-                        const tr = document.createElement("tr");
-                        tr.innerHTML = `
-                        <td>${dado.natdes}</td>
-                        <td>${dado.tcdes}</td>
-                        <td>${dado.docv}</td>                        
-                        <td>${dado.docobs}</td>
-                        <td>
-                            <button class="btn btn-danger btn-sm" onclick="deletar(${dado.doccod})">Deletar</button>
-                        </td>
-
-                    `;
-                        corpoTabela.appendChild(tr);
-                    });
-                })
-                .catch(erro => console.error(erro));
-        });
-
-        // Deletar
-        window.deletar = function (id) {
-            fetch(`${process.env.BASE_URL}/doc/${id}`, {
-                method: "DELETE"
-            })
-                .then(res => res.json())
-                .then(resposta => {
-                    alert("Registro deletado com sucesso!");
-                    // Atualiza a tabela após a exclusão
-                    document.getElementById("corpoTabela").innerHTML = "";
-                    location.reload();
-                })
-                .catch(erro => {
-                    alert("Erro ao deletar o registro.");
-                    console.error(erro);
-                });
-        };
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch(`${process.env.BASE_URL}/tc`)
-                .then(response => response.json())
-                .then(data => {
-                    const select = document.getElementById("tipoConta");
-
-                    data.forEach(item => {
-                        const option = document.createElement("option");
-                        option.value = item.tccod;
-                        option.textContent = item.tcdes;
-                        select.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error("Erro ao carregar tipos de cobrança:", error);
-                });
-        });
-        // post
-        document.getElementById("meuFormulario").addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            const form = e.target;
-            const formData = new FormData(form);
-
-            const data = Object.fromEntries(formData.entries());
-
-            fetch(`${process.env.BASE_URL}/doc`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
-                .then(res => res.json())
-                .then(resposta => {
-                    alert("Dados salvos com sucesso!");
-                    console.log(resposta);
-                    location.reload();
-                })
-                .catch(erro => {
-                    alert("Erro ao salvar os dados.");
-                    console.error(erro);
-                });
-        });
-
-    </script>
+    <script src="../js/extrato.js" ></script>
     <script src="../js/cronometro.js"></script>
     <script src="../js/logout.js"></script> 
     <!--Bootstrap Scripts-->
