@@ -55,19 +55,26 @@ Armazena os dados de login dos usuários do sistema.
 
 ```sql
 CREATE TABLE public.usu (
-  usucod serial,
-  usuemail varchar(120) NULL,
-  ususenha varchar(32) NULL,
-  CONSTRAINT pk_usu PRIMARY KEY (usuemail)
+	usucod serial4 NOT NULL,
+  usunome varchar NULL,
+	usuemail varchar(120) NOT NULL,
+	ususenha varchar(32) NULL,
+	CONSTRAINT pk_usu PRIMARY KEY (usucod, usuemail)
 );
+
+-- Permissions
+
+ALTER TABLE public.usu OWNER TO postgres;
+GRANT ALL ON TABLE public.usu TO postgres;
 ```
-- **usucod**  : Código do usuario (chave primária).
+- **usucod**  : Código do usuario.
+- **usunome**  : Nome do usuario.
 - **usuemail**: E-mail do usuário (chave primária).
 - **ususenha**: Senha do usuário (armazenada como hash MD5, por exemplo).
 
 ### 👤 Inserção de exemplo:
 ```sql
-INSERT INTO usu VALUES ('email@mail.com', md5('123'));
+INSERT INTO usu (usunome,usuemail,ususenha)VALUES ('usuario','email@email.com', md5('123'));
 ```
 
 ### 🔐 Permissões:
@@ -83,29 +90,23 @@ Tabela com os tipos de cobrança disponíveis no sistema.
 
 ```sql
 CREATE TABLE public.tc (
-  tcusucod int,
-  tccod int4 NOT NULL,
-  tcdes varchar(40) NOT NULL,
-  tctipo varchar(40) NULL,
-  CONSTRAINT tc_pkey PRIMARY KEY (tccod)
+	tcusucod int4 NULL,
+	tccod serial4 NOT NULL,
+	tcdes varchar(40) NOT NULL,
+	tctipo varchar(40) NULL,
+	CONSTRAINT tc_pkey PRIMARY KEY (tccod)
 );
+
+-- Permissions
+
+ALTER TABLE public.tc OWNER TO postgres;
+GRANT ALL ON TABLE public.tc TO postgres;
 ```
 
+- **tcusucod**: Código do usuário.
 - **tccod**: Código do tipo de cobrança (chave primária).
 - **tcdes**: Descrição (ex: "DINHEIRO").
 - **tctipo**: Tipo da cobrança (ex: "DH").
-
-Sequencia
-
-```sql
-CREATE SEQUENCE public.seq_tc
-  INCREMENT BY 1
-  MINVALUE 1
-  MAXVALUE 9223372036854775807
-  START 1
-  CACHE 1
-  NO CYCLE;
-```
 
 ### ➕ Inserção de exemplo:
 ```sql
@@ -119,52 +120,6 @@ INSERT INTO tc(tccod, tcdes, tctipo) VALUES (1, 'DINHEIRO', 'DH');
 
 ---
 
-## 📄 Tabela `doc` (Documentos)
-
-Registra documentos de cobrança, com associação ao tipo de cobrança.
-
-```sql
-CREATE TABLE public.doc (
-  docusucod int4 NOT NULL,
-  doccod serial NOT NULL,
-  docnatcod int NULL,
-  docsta bpchar(2) NULL,
-  docdsta timestamp NULL,
-  docv numeric(14, 2) DEFAULT 0 NOT NULL,
-  doctccod int4 NULL,
-  docnum varchar(18) NULL,
-  docobs bpchar(254) NULL,
-  doccontacod int,
-  doccatcod int
-  CONSTRAINT pk_doc PRIMARY KEY (docempparcod, doccod),
-  CONSTRAINT fk_doc_tc FOREIGN KEY (doctccod) REFERENCES public.tc(tccod)
-  CONSTRAINT fk_doc FOREIGN KEY (doccontacod) REFERENCES conta(contacod)
-);
-```
-
-- **docusucod**: Código da usuário.
-- **doccod**: Código do documento (gerado automaticamente pela sequence).
-- **doctipo**: Tipo do documento.
-- **docsta**: Status.
-- **docdsta**: Data de status.
-- **docv**: Valor do documento.
-- **doctccod**: Código do tipo de cobrança (chave estrangeira para `tc`).
-- **docnum**: Número do documento.
-- **docobs**: Observações.
-- **doccontacod**: Código da conta.
-- **doccatcod**: Código da categoria.
-
-### ➕ Inserção de exemplo:
-```sql
-INSERT INTO doc (docempparcod, docv, doctccod) VALUES (1, 100.00, 1);
-```
-
-### 🔐 Permissões:
-- Dono: `postgres`
-- Permissões completas: `postgres`
-- Permissão de leitura: `consulta`
-
----
 
 ## 💳 Tabela `contatipo` (Tipos da conta)
 
@@ -229,6 +184,53 @@ create table public.conta (
 
 ---
 
+## 📄 Tabela `doc` (Documentos)
+
+Registra documentos de cobrança, com associação ao tipo de cobrança.
+
+```sql
+CREATE TABLE public.doc (
+  docusucod int4 NOT NULL,
+  doccod serial NOT NULL,
+  docnatcod int NULL,
+  docsta bpchar(2) NULL,
+  docdsta timestamp NULL,
+  docv numeric(14, 2) DEFAULT 0 NOT NULL,
+  doctccod int4 NULL,
+  docnum varchar(18) NULL,
+  docobs bpchar(254) NULL,
+  doccontacod int,
+  doccatcod int,
+  CONSTRAINT pk_doc PRIMARY KEY (doccod,docusucod),
+  CONSTRAINT fk_doc_tc FOREIGN KEY (doctccod) REFERENCES public.tc(tccod),
+  CONSTRAINT fk_doc FOREIGN KEY (doccontacod) REFERENCES conta(contacod)
+);
+```
+
+- **docusucod**: Código da usuário.
+- **doccod**: Código do documento (gerado automaticamente pela sequence).
+- **doctipo**: Tipo do documento.
+- **docsta**: Status.
+- **docdsta**: Data de status.
+- **docv**: Valor do documento.
+- **doctccod**: Código do tipo de cobrança (chave estrangeira para `tc`).
+- **docnum**: Número do documento.
+- **docobs**: Observações.
+- **doccontacod**: Código da conta.
+- **doccatcod**: Código da categoria.
+
+### ➕ Inserção de exemplo:
+```sql
+INSERT INTO doc (docempparcod, docv, doctccod) VALUES (1, 100.00, 1);
+```
+
+### 🔐 Permissões:
+- Dono: `postgres`
+- Permissões completas: `postgres`
+- Permissão de leitura: `consulta`
+
+---
+
 ## 💳 Tabela `categoria` (Categorias)
 
 Tabela com as Categorias disponíveis no sistema.
@@ -240,7 +242,7 @@ create table public.categoria (
 	catdes varchar,
 	cattipo character,
   catnatcod int,
-	CONSTRAINT pk_cat PRIMARY KEY (catcod,catsta)
+	CONSTRAINT pk_cat PRIMARY KEY (catcod,cattipo)
 );
 ```
 
@@ -270,7 +272,7 @@ insert into categoria (catusucod,catdes,cattipo) values (1,'Frelancer','R');
 Tabela com as Naturezas disponíveis no sistema.
 
 ```sql
-create table public.categoria (
+create table public.natureza (
 	natcod serial,
 	natdes varchar,
 	CONSTRAINT pk_nat PRIMARY KEY (natcod,natdes)
