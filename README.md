@@ -141,7 +141,7 @@ CREATE TABLE public.doc (
 );
 ```
 
-- **docempparcod**: Código da empresa ou parceiro.
+- **docusucod**: Código da usuário.
 - **doccod**: Código do documento (gerado automaticamente pela sequence).
 - **doctipo**: Tipo do documento.
 - **docsta**: Status.
@@ -205,6 +205,7 @@ Tabela com as contas disponíveis no sistema.
 
 ```sql
 create table public.conta (
+  contausucod int NOT NULL,
 	contacod serial,
 	contades varchar,
 	contatipo int,
@@ -213,7 +214,7 @@ create table public.conta (
 	CONSTRAINT fk_contatipo FOREIGN KEY (contatipo) REFERENCES public.contatipo(contatipocod)
 );
 ```
-
+- **contausucod**: Código do usuário.
 - **contacod**: Código da conta (chave primária).
 - **contades**: Descrição (ex: "CAIXA","CARTEIRA","BANCO INTER").
 - **contatipo**: Tipo da conta (ex: "1","2","3","4" ou "5").
