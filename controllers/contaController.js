@@ -85,7 +85,7 @@ exports.editarConta = async (req, res) => {
 exports.contaSaldo = async (req, res) => {
     const {id} = req.params;
     try {
-        const result = await pool.query('select sum(contavltotal) as saldo FROM conta where contausucod = $1', [id]);
+        const result = await pool.query('select saldo from vw_saldo where usu = $1', [id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);

@@ -318,7 +318,38 @@ As permissões foram definidas para garantir o controle de acesso:
 - O usuário `postgres` possui controle total.
 - O papel `consulta` possui acesso apenas de leitura.
 
+---
+# 💰 View Saldo
 
+```sql
+CREATE OR REPLACE VIEW public.vw_saldo
+AS SELECT sum(saldo) AS saldo,
+    usu
+   FROM ( SELECT sum(
+                CASE
+                    WHEN conta.contavltotal IS NULL THEN 0::numeric
+                    ELSE conta.contavltotal
+                END) AS saldo,
+            conta.contausucod AS usu
+           FROM conta
+          GROUP BY conta.contavltotal, conta.contausucod
+        UNION
+         SELECT sum(
+                CASE
+                    WHEN doc.docv IS NULL THEN 0::numeric
+                    ELSE doc.docv
+                END) AS saldo,
+            doc.docusucod AS usu
+           FROM conta
+             LEFT JOIN doc ON doc.doccontacod = conta.contacod
+          GROUP BY doc.docv, doc.docusucod) unnamed_subquery
+  GROUP BY usu;
+
+-- Permissions
+
+ALTER TABLE public.vw_saldo OWNER TO postgres;
+GRANT ALL ON TABLE public.vw_saldo TO postgres;
+```
 
 ---
 
