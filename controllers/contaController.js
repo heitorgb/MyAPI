@@ -24,8 +24,9 @@ exports.listarConta = async (req, res) => {
 
 
 exports.listarContas = async (req, res) => {
+    const {id} = req.params;
     try {
-        const result = await pool.query('select contacod,contades,contatipodes,contavltotal FROM conta join contatipo on contatipocod = contatipo');
+        const result = await pool.query('select contacod,contades,contatipodes,contavltotal FROM conta join contatipo on contatipocod = contatipo where contausucod = $1', [id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);

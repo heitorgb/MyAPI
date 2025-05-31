@@ -140,10 +140,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Quando o DOM estiver carregado listar as contas no options contas
 document.addEventListener("DOMContentLoaded", function () {
-  fetch(`${BASE_URL}/conta`, {
-    method: "GET",
-    credentials: "include", // Inclui cookies na requisição
-  })
+ fetch('/api/dadosUserLogado')
+    .then(res => res.json())
+    .then(dados => {
+      
+      return fetch(`${BASE_URL}/contas/${dados.usucod}`)
+    })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Erro ao buscar os dados");
