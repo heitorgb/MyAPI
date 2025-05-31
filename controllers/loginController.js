@@ -54,25 +54,21 @@ exports.validarLogin = async (req, res) => {
             httpOnly: true,
             secure: false,
             sameSite: 'Strict',
-            maxAge: 10 * 60 * 1000
         });
         res.cookie('usunome',usuario.usunome,{
             httpOnly: true,
             secure: false,
-            sameSite: 'Strict',
-            maxAge: 10 * 60 * 1000
+            sameSite: 'Strict'
         });
             res.cookie('usucod',usuario.usucod,{
             httpOnly: true,
             secure: false,
-            sameSite: 'Strict',
-            maxAge: 10 * 60 * 1000
+            sameSite: 'Strict'
         });
             res.cookie('usuemail',usuario.usuemail,{
             httpOnly: true,
             secure: false,
-            sameSite: 'Strict',
-            maxAge: 10 * 60 * 1000
+            sameSite: 'Strict'
         });
 
 

@@ -123,20 +123,12 @@ app.get('/api/NomeUsuarioLogado', (req, res) => {
   }
 });
 // Rota para obter o nome do usuário logado
-app.get('/api/usucod', (req, res) => {
-  const usucod = req.cookies.usucod; 
-  if (usucod) {
-    res.json({ usucod: usucod });
-  } else {
-    res.status(401).json({ nome: null });
-  }
-});
-// Rota para obter o nome do usuário logado
 app.get('/api/dadosUserLogado', (req, res) => {
   const nomeUsuario = req.cookies.usunome; 
   const emailUsuario = req.cookies.usuemail;
+  const codUsuario = req.cookies.usucod;
   if (nomeUsuario) {
-    res.json({ nome: nomeUsuario, email: emailUsuario });
+    res.json({ nome: nomeUsuario, email: emailUsuario, usucod: codUsuario });
   } else {
     res.status(401).json({ nome: null });
   }

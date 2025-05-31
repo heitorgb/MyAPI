@@ -1,19 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch(`${BASE_URL}/doc/despesas`)
+  // Corrigido: async/await não pode ser usado diretamente no callback do addEventListener sem declarar a função como async.
+  // Também, a variável 'id' não está definida. Supondo que você queira buscar despesas do usuário logado.
+  fetch('/api/dadosUserLogado')
+    .then(res => res.json())
+    .then(dados => {
+      
+      return fetch(`${BASE_URL}/doc/despesas/${dados.usucod}`)
+    })
     .then((res) => res.json())
     .then((dados) => {
       const corpoTabela = document.getElementById("corpoTabela");
       corpoTabela.innerHTML = ""; // Limpa o conteúdo atual da tabela
-      // Não é necessário buscar por "td" por id, pois eles são criados dinamicamente.
-      // Vamos colorir a linha inteira conforme o status
       dados.forEach((dado) => {
         const tr = document.createElement("tr");
         if (dado.docsta === "LA") {
-          // tr.style.backgroundColor = "#fff3cd"; // amarelo claro (Bootstrap warning)
-          tr.style.color = "#856404"; // texto escuro para contraste
+          tr.style.color = "#856404";
         } else {
-          // tr.style.backgroundColor = "#d4edda"; // verde claro (Bootstrap success)
-          tr.style.color = "#155724"; // texto escuro para contraste
+          tr.style.color = "#155724";
         }
         const docsta = dado.docsta === "LA" ? "Aberto" : "Pago";
         tr.innerHTML = `

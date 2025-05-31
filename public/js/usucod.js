@@ -1,5 +1,5 @@
       window.onload = function () {
-        fetch('/api/usucod', {
+        fetch('/api/dadosUserLogado', {
             credentials: 'include' 
         })
         .then(response => response.json())
@@ -9,7 +9,6 @@
             document.getElementById("docusucod").value = usucod;
         })
         .catch(error => {
-            console.error('Erro ao buscar nome:', error);
-            document.getElementById("bemvindo").innerText = 'Bem-vindo, visitante!';
+            console.error('Erro ao buscar codigoUser:', error);
         });
         };

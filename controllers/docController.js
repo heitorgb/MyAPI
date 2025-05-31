@@ -46,12 +46,49 @@ exports.listarDocsReceitas = async (req, res) => {
 exports.listarDocsDespesas = async (req, res) => { 
     try {
         const natureza = "Despesa"    
-        const result = await pool.query('select doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc '+ 
+        const result = await pool.query('select docusucod,doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc '+ 
             'join natureza on natcod = docnatcod '+
             'join tc on tccod = doctccod '+ 
             'join conta on contacod = doccontacod '+
             'left join categoria on catcod = doccatcod '+
             'where natdes = $1', [natureza]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao listar documentos' });
+    }
+};
+
+
+
+exports.listarDocsDespesasUser = async (req, res) => { 
+    const {id} = req.params;
+    try {
+        const natureza = "Despesa"    
+        const result = await pool.query('select docusucod,doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc '+ 
+            'join natureza on natcod = docnatcod '+
+            'join tc on tccod = doctccod '+ 
+            'join conta on contacod = doccontacod '+
+            'left join categoria on catcod = doccatcod '+
+            'where natdes = $1 and docusucod = $2', [natureza,id]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao listar documentos' });
+    }
+};
+
+
+exports.listarDocsReceitasUser = async (req, res) => { 
+    const {id} = req.params;
+    try {
+        const natureza = "Receita"    
+        const result = await pool.query('select docusucod,doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc '+ 
+            'join natureza on natcod = docnatcod '+
+            'join tc on tccod = doctccod '+ 
+            'join conta on contacod = doccontacod '+
+            'left join categoria on catcod = doccatcod '+
+            'where natdes = $1 and docusucod = $2', [natureza,id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
