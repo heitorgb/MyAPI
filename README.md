@@ -235,6 +235,7 @@ Tabela com as Categorias disponíveis no sistema.
 
 ```sql
 create table public.categoria (
+  catusucod int,
 	catcod serial,
 	catdes varchar,
 	cattipo character,
@@ -243,16 +244,17 @@ create table public.categoria (
 );
 ```
 
+- **catusucod**: Código do usuário.
 - **catcod**: Código da categoria (chave primária).
 - **catdes**: Descrição (ex: "Transporte","Salario","Mercado").
-- **catsta**: Status da categoria R ou D (ex: "Receita" ou "Despesa").
+- **cattipo**: Status da categoria R ou D (ex: "Receita" ou "Despesa").
 
 ### ➕ Inserção de exemplo:
 ```sql
-insert into categoria (catdes,catsta) values ('Salário','R');
-insert into categoria (catdes,catsta) values ('Transporte','D');
-insert into categoria (catdes,catsta) values ('Mercado','D');
-insert into categoria (catdes,catsta) values ('Frelancer','R');
+insert into categoria (catusucod,catdes,cattipo) values (1,'Salário','R');
+insert into categoria (catusucod,catdes,cattipo) values (1,'Transporte','D');
+insert into categoria (catusucod, catdes,cattipo) values (1,'Mercado','D');
+insert into categoria (catusucod,catdes,cattipo) values (1,'Frelancer','R');
 ```
 
 
