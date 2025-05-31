@@ -170,10 +170,12 @@ fetch('/api/dadosUserLogado')
 });
 // listagem de categorias
 document.addEventListener("DOMContentLoaded", function () {
-  fetch(`${BASE_URL}/catTodos`, {
-    method: "GET",
-    credentials: "include", // Inclui cookies na requisição
-  })
+ fetch('/api/dadosUserLogado')
+    .then(res => res.json())
+    .then(dados => {
+      
+      return fetch(`${BASE_URL}/catTodosDespesa/${dados.usucod}`)
+    })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Erro ao buscar os dados");

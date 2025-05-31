@@ -1,9 +1,9 @@
 const pool = require('../db/db.js');
 
 exports.InsertCategoria = async (req, res) => {
-    const { catdes,cattipo } = req.body;
+    const { catusucod,catdes,cattipo } = req.body;
     try {
-        const result = await pool.query('insert into categoria (catdes,cattipo) values ($1, $2) RETURNING *', [catdes,cattipo]);
+        const result = await pool.query('insert into categoria (catusucod,catdes,cattipo) values ($1, $2,$3) RETURNING *', [catusucod ,catdes,cattipo]);
         res.status(201).json(result.rows[0]);
     } catch (error) {
         console.error(error);
@@ -13,14 +13,41 @@ exports.InsertCategoria = async (req, res) => {
 
 
 exports.listarcatTodos = async (req, res) => {
+    const { id } = req.params;
     try {
-        const result = await pool.query('select catcod,catdes,cattipo from categoria ');
+        const result = await pool.query('select catcod,catdes,cattipo from categoria where catusucod = $1', [id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erro ao buscar categoria' });
     }
 };
+
+exports.listarcatTodosReceita = async (req, res) => {
+    const { id } = req.params;
+    const R = "R";
+    try {
+        const result = await pool.query('select catcod,catdes,cattipo from categoria where cattipo = $1 and catusucod = $2', [R,id]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao buscar categoria' });
+    }
+};
+
+exports.listarcatTodosDespesa = async (req, res) => {
+    const { id } = req.params;
+    const D = "D";
+    try {
+        const result = await pool.query('select catcod,catdes,cattipo from categoria where cattipo = $1 and catusucod = $2', [D,id]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao buscar categoria' });
+    }
+};
+
+
 
 exports.listarCategoriaReceita = async (req, res) => {
     try {

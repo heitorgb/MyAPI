@@ -4,7 +4,7 @@ const docController = require('../controllers/docController');
 const autenticarToken = require('../src/middleware/authMiddleware');
 
 router.post('/doc',autenticarToken, docController.criarDoc);
-router.get('/doc',autenticarToken, docController.listarDocs);
+router.get('/doc/:id',autenticarToken, docController.listarDocs);
 router.get('/doc/receitas',autenticarToken, docController.listarDocsReceitas);
 router.get('/doc/despesas',autenticarToken, docController.listarDocsDespesas);
 router.get('/doc/despesas/:id',autenticarToken, docController.listarDocsDespesasUser);

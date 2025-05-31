@@ -15,11 +15,12 @@ exports.criarDoc = async (req, res) => {
 };
 
 exports.listarDocs = async (req, res) => {
+    const { id } = req.params;
     try {
         const result = await pool.query('select doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc join natureza on natcod = docnatcod '+
             'join tc on tccod = doctccod '+ 
             'join conta on contacod = doccontacod '+
-            'left join categoria on catcod = doccatcod');
+            'left join categoria on catcod = doccatcod where docusucod = $1', [id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);

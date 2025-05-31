@@ -5,7 +5,9 @@ const autenticarToken = require('../src/middleware/authMiddleware');
 
 router.get('/catReceita',autenticarToken , categoriaController.listarCategoriaReceita);
 router.get('/catDespesa',autenticarToken , categoriaController.listarCategoriaDespesa);
-router.get('/catTodos',autenticarToken , categoriaController.listarcatTodos);
+router.get('/catTodos/:id',autenticarToken , categoriaController.listarcatTodos);
+router.get('/catTodosReceita/:id',autenticarToken , categoriaController.listarcatTodosReceita);
+router.get('/catTodosDespesa/:id',autenticarToken , categoriaController.listarcatTodosDespesa);
 router.post('/catInsert',autenticarToken , categoriaController.InsertCategoria);
 router.delete('/cat/:id',autenticarToken , categoriaController.deletarCategoria);
 router.put('/cat/:id',autenticarToken , categoriaController.editarCategoria);
