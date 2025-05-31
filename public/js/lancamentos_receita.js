@@ -116,7 +116,12 @@ document
   });
 // Quando o DOM estiver carregado listar as cobranças no options
 document.addEventListener("DOMContentLoaded", function () {
-  fetch(`${BASE_URL}/tc`)
+  fetch('/api/dadosUserLogado')
+    .then(res => res.json())
+    .then(dados => {
+      
+      return fetch(`${BASE_URL}/tc/${dados.usucod}`)
+    })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Erro ao buscar os dados");

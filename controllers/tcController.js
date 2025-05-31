@@ -1,9 +1,9 @@
 const pool = require('../db/db.js');
 
 exports.InsertTC = async (req, res) => {
-    const { tcdes } = req.body;
+    const { tcdes,tcusucod } = req.body;
     try {
-        const result = await pool.query('INSERT INTO tc (tcdes) VALUES ($1) RETURNING *', [tcdes]);
+        const result = await pool.query('INSERT INTO tc (tcdes,tcusucod) VALUES ($1,$2) RETURNING *', [tcdes,tcusucod]);
         res.status(201).json(result.rows[0]);
     } catch (error) {
         console.error(error);
@@ -12,8 +12,9 @@ exports.InsertTC = async (req, res) => {
 }
 
 exports.listarTCs = async (req, res) => {
+    const { id } = req.params;
     try {
-        const result = await pool.query('SELECT tccod, tcdes FROM tc');
+        const result = await pool.query('SELECT tccod, tcdes FROM tc where tcusucod = $1', [id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);

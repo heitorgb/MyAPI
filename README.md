@@ -83,6 +83,7 @@ Tabela com os tipos de cobrança disponíveis no sistema.
 
 ```sql
 CREATE TABLE public.tc (
+  tcusucod int,
   tccod int4 NOT NULL,
   tcdes varchar(40) NOT NULL,
   tctipo varchar(40) NULL,
