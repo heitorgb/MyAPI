@@ -1,10 +1,8 @@
       window.onload = function () {
-        fetch('/api/NomeUsuarioLogado', {
-            credentials: 'include' 
-        })
-        .then(response => response.json())
-        .then(data => {
-            const nome = data.nome;
+  fetch('/api/dadosUserLogado')
+    .then(res => res.json())
+    .then(data => {
+            const nome = data.usunome;
             const msg = nome ? `Bem-vindo, ${nome}!` : 'Bem-vindo, visitante!';
             document.getElementById("bemvindo").innerText = msg;
         })
@@ -12,4 +10,6 @@
             console.error('Erro ao buscar nome:', error);
             document.getElementById("bemvindo").innerText = 'Bem-vindo, visitante!';
         });
-        };
+    };
+        
+        
