@@ -1,7 +1,6 @@
 
 document.getElementById('formLogin').addEventListener('submit', async (e) => {
   e.preventDefault();
-
   const usuemail = document.getElementById('email').value;
   const ususenha = document.getElementById('senha').value;
   const loader = document.getElementById('c-loader');
