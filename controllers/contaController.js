@@ -68,8 +68,9 @@ exports.deletarConta = async (req, res) => {
 exports.editarConta = async (req, res) => {
     const { id } = req.params;
     const { contades } = req.body;
+    const { contavltotal } = req.body;
     try {
-        const result = await pool.query('UPDATE conta SET tcdes = $1 WHERE contacod = $2 RETURNING *', [contades, id]);
+        const result = await pool.query('UPDATE conta SET contades = $1 , contavltotal = $2 WHERE contacod = $3 RETURNING *', [contades,contavltotal, id]);
         if (result.rowCount === 0) {
             return res.status(404).json({ error: 'Conta não encontrada' });
         }

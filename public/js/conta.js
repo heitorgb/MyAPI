@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>${dado.contatipodes}</td>
             <td>${dado.contavltotal}</td>
             <td>
+                <button class="btn btn-danger btn-sm" onclick="editar(${dado.contacod})">Editar</button>
                 <button class="btn btn-danger btn-sm" onclick="deletar(${dado.contacod})">Deletar</button>
             </td>
 
@@ -26,24 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(erro => console.error(erro));
 });
-// delete
-window.deletar = function (id) {
-    fetch(`${BASE_URL}/conta/${id}`, {
-        method: "DELETE"
-    })
-        .then(res => {
-            if (res.status === 200) {
-                alert("Registro deletado com sucesso!");
-                location.reload();
-            } else if (res.status === 500) {
-                alert("Existem registros vinculados a este item. Não é possível deletar.");
-            }else {
-                alert("Erro ao deletar o registro.");
-            }
-        })
-        
-};         
-
+       
 document.addEventListener("DOMContentLoaded", function () {
     fetch(`${BASE_URL}/conta`)
         .then(response => response.json())
@@ -85,3 +69,51 @@ document.getElementById("meuFormulario").addEventListener("submit", function (e)
             console.error(erro);
         });
 });
+// delete
+window.deletar = function (id) {
+    fetch(`${BASE_URL}/conta/${id}`, {
+        method: "DELETE"
+    })
+        .then(res => {
+            if (res.status === 200) {
+                alert("Registro deletado com sucesso!");
+                location.reload();
+            } else if (res.status === 500) {
+                alert("Existem registros vinculados a este item. Não é possível deletar.");
+            }else {
+                alert("Erro ao deletar o registro.");
+            }
+        })
+        
+};
+//editar
+window.editar = function (id) {
+  // Exemplo: obtenha os novos valores do usuário (pode ser via prompt ou modal)
+  const novoContaDes = prompt("Digite a nova descrição da categoria:");
+  const novoContaValor = prompt("Digite o novo saldo da conta):");
+
+  if (!novoContaDes || !novoContaValor) {
+    alert("Descrição e tipo são obrigatórios para editar.");
+    return;
+  }
+
+  fetch(`${BASE_URL}/conta/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contades: novoContaDes,
+      contavltotal: novoContaValor
+    }),
+  })
+    .then((res) => res.json())
+    .then(() => {
+      alert("Registro editado com sucesso!");
+      // Atualiza a tabela após a edição
+      document.getElementById("corpoTabela").innerHTML = "";
+      location.reload();
+    })
+    .catch((erro) => {
+      alert("Erro ao editar o registro.");
+      console.error(erro);
+    });
+};
