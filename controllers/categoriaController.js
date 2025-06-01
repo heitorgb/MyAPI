@@ -15,7 +15,7 @@ exports.InsertCategoria = async (req, res) => {
 exports.listarcatTodos = async (req, res) => {
     const { id } = req.params;
     try {
-        const result = await pool.query('select catcod,catdes,cattipo from categoria where catusucod = $1', [id]);
+        const result = await pool.query('select catcod,catdes,cattipo from categoria where catusucod = $1 order by catcod', [id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -27,7 +27,7 @@ exports.listarcatTodosReceita = async (req, res) => {
     const { id } = req.params;
     const R = "R";
     try {
-        const result = await pool.query('select catcod,catdes,cattipo from categoria where cattipo = $1 and catusucod = $2', [R,id]);
+        const result = await pool.query('select catcod,catdes,cattipo from categoria where cattipo = $1 and catusucod = $2 order by catcod', [R,id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -39,7 +39,7 @@ exports.listarcatTodosDespesa = async (req, res) => {
     const { id } = req.params;
     const D = "D";
     try {
-        const result = await pool.query('select catcod,catdes,cattipo from categoria where cattipo = $1 and catusucod = $2', [D,id]);
+        const result = await pool.query('select catcod,catdes,cattipo from categoria where cattipo = $1 and catusucod = $2 order by catcod', [D,id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -53,7 +53,7 @@ exports.listarCategoriaReceita = async (req, res) => {
     const { id } = req.params;
     try {
         const r = "R"
-        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 and catusucod = $2', [r,id]);
+        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 and catusucod = $2 order by catcod', [r,id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -64,7 +64,7 @@ exports.listarCategoriaReceita = async (req, res) => {
 exports.listarCat = async (req, res) => {
     try {
         const r = "R"
-        const result = await pool.query('select catcod,catdes,cattipo from categoria ');
+        const result = await pool.query('select catcod,catdes,cattipo from categoria order by catcod');
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -76,7 +76,7 @@ exports.listarCategoriaDespesa = async (req, res) => {
     const { id } = req.params;
     try {
         const d = "D"
-        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 and catusucod = $2', [d,id]);
+        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 and catusucod = $2 order by catcod', [d,id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
