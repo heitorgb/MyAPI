@@ -4,11 +4,11 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
 
   const usuemail = document.getElementById('email').value;
   const ususenha = document.getElementById('senha').value;
-  const loader = document.getElementById('c-loader');
-  loader.style.display = 'block';
-  setTimeout(() => {
-    loader.style.display = 'none';
-  }, 2000);
+  //const loader = document.getElementById('c-loader');
+  //loader.style.display = 'block';
+  //setTimeout(() => {
+  //  loader.style.display = 'none';
+  //}, 2000);
 
   try {
     const response = await fetch(`${BASE_URL}/auth/login`, {
@@ -25,10 +25,44 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
     if (response.ok) {
       window.location.href = `${BASE_URL}/dash`;
     } else {
-      alert(data.mensagem || 'Email ou senha incorretos!');
+        alertPersonalizado(data.mensagem || 'Email ou senha incorretos!', 2000);
     }
   } catch (error) {
     console.error('Erro na requisição:', error);
-    alert('Erro ao tentar fazer login');
+    alertPersonalizado('Erro ao tentar fazer login',2000);
   }
 });
+
+// alertPersonalizado personalizado
+
+function alertPersonalizado(message,time) {
+    let alertPersonalizado = document.getElementById("alertPersonalizado");
+    
+    if (!alertPersonalizado) {
+        alertPersonalizado = document.createElement("div");
+        alertPersonalizado.id = "alertPersonalizado";
+        alertPersonalizado.style = `
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: #fff;
+        padding: 16px 24px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s;
+      `;
+      document.body.appendChild(alertPersonalizado);
+    }
+  
+    alertPersonalizado.textContent = message;
+    alertPersonalizado.style.opacity = "1";
+  
+    setTimeout(() => {
+        alertPersonalizado.style.opacity = "0";
+        alertPersonalizado.remove(); 
+    }, time);
+  };

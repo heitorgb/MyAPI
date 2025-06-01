@@ -60,7 +60,7 @@ const autenticarToken = require('./src/middleware/authMiddleware');
 const { error } = require('console');
 
 app.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/public/html/login.html');
+    res.sendFile(__dirname + '/public/login/index.html');
 });
 
 app.get('/dash',autenticarToken, (req,res)  => {
