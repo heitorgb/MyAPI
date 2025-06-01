@@ -13,8 +13,8 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  margin-top: 10px;
-  left: 49%;
+  margin-top: -50px;
+  left: 45%;
 }
 
 @keyframes is-rotating {
