@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 	<title>Ulife Uctrl | Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
+	<!--===============================================================================================-->
 	<link rel="shortcut icon" href="../img/favicon.png" type="image/x-icon">
-<!--===============================================================================================-->
+	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" href="./css/loadin.css">
 	<!--===============================================================================================-->
 </head>
+
 <body>
-	
+
 	<div class="limiter">
 		<div class="container-login100" ">
-			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-				<form id="formLogin" class="login100-form validate-form">
-					<span class="login100-form-title p-b-49">
-						Login
-					</span>
-					<div class="wrap-input100 validate-input m-b-23" data-validate = "Por favor insira o email">
-						<span class="label-input100"></span>
-						<input class="input100" id="email" type="text" name="email"  placeholder="Email" required>
-						<span class="focus-input100" ></span>
-					</div>
+			<div class=" wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+			<form id="formLogin" class="login100-form validate-form">
+				<span class="login100-form-title p-b-49">
+					Login
+				</span>
+				<div class="wrap-input100 validate-input m-b-23" data-validate="Por favor insira o email">
+					<span class="label-input100"></span>
+					<input class="input100" id="email" type="text" name="email" placeholder="Email" required>
+					<span class="focus-input100"></span>
+				</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Por favor insira a senha">
-						<span class="label-input100"></span>
-						<input class="input100" id="senha" type="password" placeholder="Senha" required>
-						<span class="focus-input100" ></span>
-					</div>
-					
-					<div class="text-right p-t-8 p-b-31">
-						<a href="#">
-							Esqueceu a senha?
-						</a>
-					</div>
-					
-					<div class="container-login100-form-btn">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn" id="entrar" type="submit">
-								Entrar
-							</button>
-						</div>
-					</div>
+				<div class="wrap-input100 validate-input" data-validate="Por favor insira a senha">
+					<span class="label-input100"></span>
+					<input class="input100" id="senha" type="password" placeholder="Senha" required>
+					<span class="focus-input100"></span>
+				</div>
 
-					 <!-- <div class="txt1 text-center p-t-54 p-b-20">
+				<div class="text-right p-t-8 p-b-31">
+					<a href="#">
+						Esqueceu a senha?
+					</a>
+				</div>
+
+				<div class="container-login100-form-btn">
+					<div class="wrap-login100-form-btn">
+						<div class="login100-form-bgbtn"></div>
+						<button class="login100-form-btn" id="entrar" type="submit">
+							Entrar
+						</button>
+					</div>
+					<div>
+						<div id="c-loader" class="c-loader"></div>
+					</div>
+					<!-- <div class="txt1 text-center p-t-54 p-b-20">
 						<span>
 							Or Sign Up Using
 						</span>
@@ -76,17 +80,16 @@
 							Registrar-se
 						</a>
 					</div>
-				</form>
-			</div>
+			</form>
 		</div>
 	</div>
-	
-
+	</div>
 	<div id="dropDownSelect1"></div>
 	<script src="/config.js"></script>
-    <script src="../js/login.js"></script>
+	<script src="../js/login.js"></script>
 
-	<script src="js/main.js"></script>
+
 
 </body>
+
 </html>

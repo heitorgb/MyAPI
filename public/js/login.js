@@ -4,11 +4,11 @@ document.getElementById('formLogin').addEventListener('submit', async (e) => {
 
   const usuemail = document.getElementById('email').value;
   const ususenha = document.getElementById('senha').value;
-  //const loader = document.getElementById('c-loader');
-  //loader.style.display = 'block';
-  //setTimeout(() => {
-  //  loader.style.display = 'none';
-  //}, 2000);
+  const loader = document.getElementById('c-loader');
+  loader.style.display = 'block';
+  setTimeout(() => {
+    loader.style.display = 'none';
+  }, 2000);
 
   try {
     const response = await fetch(`${BASE_URL}/auth/login`, {
