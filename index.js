@@ -1,6 +1,7 @@
 require('dotenv').config();
 var createError = require('http-errors');
 const express = require('express');
+const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 var path = require('path');
@@ -16,6 +17,29 @@ const naturezaController = require('./routes/naturezaRoutes');
 const pool = require('./db/db');
 // Importando o pool de conexão com o banco de dados
 const app = express();
+
+// Configuração do Passport para autenticação com Google
+const passport = require('passport');
+require('./auth/google'); // caminho para o arquivo da estratégia Google
+
+//
+
+
+
+
+app.use(session({
+  secret: 'minha_chave_secreta',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: true, // Garante que o cookie de sessão só será enviado via HTTPS
+    sameSite: 'lax'
+  }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 // view engine setup arquivos PUG Tratamento de ERros de rotas
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -53,6 +77,14 @@ app.use(contaRoutes);
 app.use(docRoutes);
 app.use(tcRoutes);
 app.use('/',loginRoutes);
+
+
+app.get('/perfilgoogle', (req, res) => {
+  if (!req.isAuthenticated || !req.isAuthenticated()) {
+    return res.status(401).send('Você precisa estar logado.');
+  }
+  res.json(req.user);
+});
 
 app.use(express.static('public/'));
 
@@ -108,6 +140,25 @@ app.get('/navbar',autenticarToken, (req, res) => {
 app.get('/perfil',autenticarToken,(req,res)  => {
     res.sendFile(__dirname + '/public/html/perfil.html')
 });
+
+//------------------------------------------------------
+
+// Rota para iniciar login
+app.get('/auth/google', passport.authenticate('google', {
+  scope: ['profile', 'email']
+}));
+
+// Callback após login
+app.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Redireciona após sucesso
+    res.redirect('/perfil');
+  }
+);
+
+
+//------------------------------------------------------
 // Rota para expor a variável BASE_URL para o navegador
 app.get('/config.js', (req, res) => {
   res.type('application/javascript');
