@@ -64,7 +64,6 @@ window.deletar = function (id) {
     });
 };
 
-// post
 document
   .getElementById("meuFormulario")
   .addEventListener("submit", async function (e) {
@@ -72,24 +71,23 @@ document
 
     const form = e.target;
     const formData = new FormData(form);
-
     const data = Object.fromEntries(formData.entries());
+    const alerta = document.getElementById("alerta-sucess");
 
-    // vamos verificar se o campo docsta está vazio e se sim, vamos colocar LA
+    // Se docsta estiver vazio, define como "LA"
     if (!data.docsta || data.docsta.trim() === "") {
       data.docsta = "LA";
     }
 
-    // Buscar o código da natureza onde natdes = 'D'
+    // Buscar o código da natureza específica para 'Despesa'
     try {
       const natRes = await fetch(`${BASE_URL}/natureza/receita`);
       if (!natRes.ok) throw new Error("Erro ao buscar natureza");
       const natData = await natRes.json();
-      // Supondo que o endpoint retorna um array de naturezas
       if (Array.isArray(natData) && natData.length > 0) {
         data.docnatcod = natData[0].natcod;
       } else {
-        console.error("Nenhuma natureza encontrada com natdes = 'R'");
+        console.error("Nenhuma natureza encontrada com natdes = 'D'");
         return;
       }
     } catch (err) {
@@ -99,21 +97,63 @@ document
 
     fetch(`${BASE_URL}/doc`, {
       method: "POST",
-      credentials: "include", // Inclui cookies na requisição
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((resposta) => {
-        alert("Dados salvos com sucesso!");
-        console.log(resposta);
-        location.reload();
+        atualizarTabelaReceitas(); // Atualiza a tabela sem recarregar a página
+        form.reset();
       })
       .catch((erro) => {
         alert("Erro ao salvar os dados.");
         console.error(erro);
       });
+
+      alerta.style.display = "block";   
+      alerta.innerHTML = "Lançado com sucesso!"; 
+      setTimeout(() => {
+          alerta.style.display = "none";
+      }, 2000);
   });
+
+// Função para atualizar a tabela de despesas via AJAX
+async function atualizarTabelaReceitas() {
+  try {
+    const userRes = await fetch('/api/dadosUserLogado');
+    const dadosUser = await userRes.json();
+    const despesasRes = await fetch(`${BASE_URL}/doc/receitas/${dadosUser.usucod}`);
+    const dados = await despesasRes.json();
+
+    const corpoTabela = document.getElementById("corpoTabela");
+    corpoTabela.innerHTML = "";
+    dados.forEach((dado) => {
+      const tr = document.createElement("tr");
+      tr.style.color = dado.docsta === "LA" ? "#856404" : "#155724";
+      const docsta = dado.docsta === "LA" ? "Aberto" : "Pago";
+      tr.innerHTML = `
+        <td>${dado.docv}</td>
+        <td>${dado.tcdes}</td>
+        <td>${dado.natdes}</td>
+        <td>${dado.catdes}</td>
+        <td>${dado.contades}</td>
+        <td>${dado.docobs}</td>
+        <td>
+          ${dado.docsta === "LA" ? '<i class="fa fa-spinner fa-spin fa-1x fa-fw"></i>' : '<i class="fa fa-check-square"></i>'}
+          ${docsta}
+        </td>
+        <td>
+          <button class="btn btn-danger btn-sm" onclick="deletar(${dado.doccod})">Deletar</button>
+        </td>
+      `;
+      corpoTabela.appendChild(tr);
+    });
+  } catch (erro) {
+    console.error("Erro ao atualizar tabela de despesas:", erro);
+  }
+}
+
 // Quando o DOM estiver carregado listar as cobranças no options
 document.addEventListener("DOMContentLoaded", function () {
   fetch('/api/dadosUserLogado')
