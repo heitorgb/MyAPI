@@ -75,14 +75,14 @@ npm install express pg bcryptjs jsonwebtoken body-parser dotenv cors cookie-pars
 ### 3. Crie um arquivo .env na raiz com o seguinte conteúdo:
 
 ```bash
-DB_HOST= SEU_IP
+DB_HOST=SEU_IP
 DB_PORT=PORTA
 DB_USER=USUARIO
 DB_PASSWORD=SENHA
 DB_NAME=BASE_DADOS
 BASE_URL=http://localhost:3000
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET= 
+GOOGLE_CLIENT_ID=API_key
+GOOGLE_CLIENT_SECRET=API_key
 HTTPS=false
 
 ```
