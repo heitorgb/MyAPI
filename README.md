@@ -3,21 +3,62 @@
 Sistema web para controle financeiro pessoal com login e senha, onde o usuário pode registrar receitas, despesas e visualizar o total líquido.
 
 ---
-
 ## 🛠️ Tecnologias Utilizadas
-
 
 | 🖥️ Frontend  | ⚙️ Backend     | 📦 Pacotes Node.js                        |
 |--------------|----------------|-------------------------------------------|
-| HTML5        | Node.js        | express                                   |
-| CSS3         | Express        | pg                                        |
-| JavaScript   | PostgreSQL     | bcryptjs                                  |
-|              |                | jsonwebtoken                              |
-|              |                | body-parser                               |
-|              |                | cors *(opcional)*                         |
-|              |                | dotenv                                    |
+| HTML5        | Node.js        | **Servidor & Roteamento:**               |
+| CSS3         | Express        | • express                                 |
+| JavaScript   | PostgreSQL     |                                           |
+|              |                | **Banco de Dados:**                      |
+|              |                | • pg                                      |
+|              |                |                                           |
+|              |                | **Autenticação & Sessões:**             |
+|              |                | • bcryptjs                                |
+|              |                | • jsonwebtoken                            |
+|              |                | • passport                                |
+|              |                | • passport-google-oauth20                |
+|              |                | • express-session                         |
+|              |                |                                           |
+|              |                | **Middlewares & Utilitários:**          |
+|              |                | • body-parser                             |
+|              |                | • cookie-parser                           |
+|              |                | • cors *(opcional)*                       |
+|              |                | • dotenv                                  |
+|              |                | • morgan *(logger)*                       |
+|              |                |                                           |
+|              |                | **Template Engine:**                    |
+|              |                | • pug                                     |
 
 ---
+
+## 📚 Legenda dos Pacotes Node.js
+
+### 🔧 Servidor & Roteamento
+- **express**: Framework para rotas e servidor web.
+
+### 🗃️ Banco de Dados
+- **pg**: Cliente PostgreSQL para Node.js.
+
+### 🔐 Autenticação & Sessões
+- **bcryptjs**: Criptografia de senhas.
+- **jsonwebtoken**: Geração/validação de tokens JWT.
+- **passport**: Middleware de autenticação.
+- **passport-google-oauth20**: Login com conta Google.
+- **express-session**: Gerenciamento de sessões com cookies.
+
+### ⚙️ Middlewares & Utilitários
+- **body-parser**: Parser de JSON e formulários.
+- **cookie-parser**: Leitura de cookies.
+- **cors**: Habilita CORS.
+- **dotenv**: Gerencia variáveis de ambiente.
+- **morgan**: Log das requisições.
+
+### 🎨 Template Engine
+- **pug**: Motor de template para renderizar HTML dinâmico.
+
+---
+
 
 # 📥 Instalação:
 
