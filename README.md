@@ -29,7 +29,7 @@ git clone https://github.com/CaioRodrigoCEVDEV/MyAPI.git
 
 ```bash
 npm init -y
-npm install express pg bcryptjs jsonwebtoken body-parser dotenv cors cookie-parser pug morgan
+npm install express pg bcryptjs jsonwebtoken body-parser dotenv cors cookie-parser pug morgan passport passport-google-oauth20 express-session
 ```
 ### 3. Crie um arquivo .env na raiz com o seguinte conteúdo:
 
