@@ -21,7 +21,7 @@ function autenticarToken(req, res, next) {
         res.cookie('token', novoToken, {
         httpOnly: true,
         sameSite: 'Strict',
-        secure: true, // ou true em produção com HTTPS
+        secure: process.env.HTTPS,
         });
 
 

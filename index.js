@@ -21,14 +21,14 @@ const app = express();
 
 // Configuração do Passport para autenticação com Google
 const passport = require('passport');
-require('./auth/google'); // caminho para o arquivo da estratégia Google
+require('./controllers/auth/google'); // caminho para o arquivo da estratégia Google
 // Configuração do Passport GOOGLE
 app.use(session({
   secret: 'minha_chave_secreta',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: true, // true  HTTPS false HTTP
+    secure: process.env.HTTPS, 
     sameSite: 'lax'
   }
 }));

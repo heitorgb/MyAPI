@@ -55,7 +55,7 @@ exports.validarLogin = async (req, res) => {
 
         res.cookie('token',token,{
             httpOnly: true,
-            secure: true,
+            secure: process.env.HTTPS,
             sameSite: 'Strict',
         });
 
