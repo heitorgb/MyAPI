@@ -379,11 +379,11 @@ AS SELECT usu,
             ( SELECT COALESCE(sum(d.docv), 0::numeric) AS "coalesce"
                    FROM doc d
                      JOIN conta c2 ON d.doccontacod = c2.contacod
-                  WHERE d.docusucod = c.contausucod AND COALESCE(d.docnatcod, 0) = 2) AS credito,
+                  WHERE d.docusucod = c.contausucod AND COALESCE(d.docnatcod, 0) = 2  AND d.docsta = 'BA') AS credito,
             ( SELECT COALESCE(sum(d.docv), 0::numeric) AS "coalesce"
                    FROM doc d
                      JOIN conta c2 ON d.doccontacod = c2.contacod
-                  WHERE d.docusucod = c.contausucod AND COALESCE(d.docnatcod, 0) = 1) AS debito
+                  WHERE d.docusucod = c.contausucod AND COALESCE(d.docnatcod, 0) = 1  AND d.docsta = 'BA') AS debito
            FROM conta c
           GROUP BY c.contausucod) saldo_geral;
 

@@ -222,6 +222,14 @@ app.get('/auth/sair', (req, res) => {
     res.status(401).json({ error: "erro ao sair" });
   }
 });
+
+// tratamento 404 not found  >>>
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use((req, res, next) => {
+  res.status(404).sendFile(path.join(__dirname, 'dist/404.html'));
+});
+// tratamento 404 not found <<<<
+
 // tratamento de erros
 app.use(function (req, res, next) {
   next(createError(404));
