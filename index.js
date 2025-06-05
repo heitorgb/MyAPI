@@ -132,6 +132,9 @@ app.get('/perfil', (req, res) => {
 app.get('/register', (req, res) => {
   res.sendFile(__dirname + '/public/register/register.html')
 });
+app.get('/editar', (req, res) => {
+  res.sendFile(__dirname + '/public/html/editar.html')
+});
 // Rota para iniciar login com Google
 app.get('/auth/google', passport.authenticate('google', {
   scope: ['profile', 'email']

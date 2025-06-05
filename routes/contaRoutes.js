@@ -9,5 +9,6 @@ router.get('/contaSaldo/:id', autenticarToken,contaController.contaSaldo);
 router.post('/conta', autenticarToken,contaController.Insertconta);
 router.delete('/conta/:id', autenticarToken,contaController.deletarConta);
 router.put('/conta/:id', autenticarToken,contaController.editarConta);
+router.get('/contaid/:id', autenticarToken,contaController.listarContasId);
 
 module.exports = router;

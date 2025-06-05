@@ -47,6 +47,16 @@ exports.listarContasUser = async (req, res) => {
     }
 };
 
+exports.listarContasId = async (req, res) => {
+    const {id} = req.params;
+    try {
+        const result = await pool.query('select contacod,contades,contatipodes,contavltotal FROM conta join contatipo on contatipocod = contatipo where contacod = $1', [id]);
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao buscar conta' });
+    }
+};
 
 
 exports.deletarConta = async (req, res) => {
@@ -60,11 +70,6 @@ exports.deletarConta = async (req, res) => {
         res.status(500).json({ error: 'Erro ao deletar documento' });
     }
 };
-
-
-
-
-
 
 exports.editarConta = async (req, res) => {
     const { id } = req.params;
