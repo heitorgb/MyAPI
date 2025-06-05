@@ -126,7 +126,7 @@ app.get('/sidebar', autenticarToken, (req, res) => {
 app.get('/navbar', autenticarToken, (req, res) => {
   res.sendFile(__dirname + '/public/html/navbar.html');
 });
-app.get('/perfil', autenticarToken, (req, res) => {
+app.get('/perfil', (req, res) => {
   res.sendFile(__dirname + '/public/html/perfil.html')
 });
 app.get('/register', (req, res) => {

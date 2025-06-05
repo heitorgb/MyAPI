@@ -69,21 +69,29 @@ exports.validarLogin = async (req, res) => {
 
 
 exports.atualizarCadastro = async (req, res) => {
-    const { usunome,usucod } = req.body;
+    const {id} = req.params;
+    const { usunome,usuemail,ususenha } = req.body;
 
     try {
         // Gera o hash MD5 da nova senha
-        //const senhaHash = crypto.createHash('md5').update(ususenha).digest('hex');
+        const newSenhaHash = crypto.createHash('md5').update(ususenha).digest('hex');
 
-        const novoNome = usunome || ''; // Se usunome não for fornecido, define como string vazia
-        // Atualiza o usuário no banco de dados
+        const result = await pool.query('UPDATE usu SET usunome = $1, ususenha = $2 WHERE usucod = $3', [usunome,newSenhaHash,id]);
+          
+       // Gera o hash MD5 da senha recebida
 
-        const result = await pool.query('UPDATE usu SET usunome = $1 WHERE usucod = $2', [novoNome, usucod]);
+        // Se tudo ok, retorna sucesso
 
-        if (result.rowCount === 0) {
-            return res.status(404).json({ mensagem: 'Usuário não encontrado' });
-        }
+        const token = jwt.sign({ 
+            usuemail: usuemail,
+            usucod: id,
+            usunome: usunome}, 'chave-secreta', { expiresIn: '10m' });
 
+        res.cookie('token',token,{
+            httpOnly: true,
+            secure: process.env.HTTPS,
+            sameSite: 'Strict',
+        })
         res.status(200).json({ mensagem: 'Senha atualizada com sucesso' });
     } catch (error) {
         console.error(error);
