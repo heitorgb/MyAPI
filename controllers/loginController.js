@@ -12,10 +12,10 @@ exports.listarlogin = async (req, res) => {
 };
 
 exports.cadastrarlogin = async (req, res) => {
-    const { usuemail, ususenha } = req.body;
-
+    const { usunome,usuemail, ususenha } = req.body;
+    const senhaHash = crypto.createHash('md5').update(ususenha).digest('hex');
     try {
-        const result = await pool.query('INSERT INTO usu (usuemail, ususenha) VALUES ($1, $2)', [usuemail, ususenha]);
+        const result = await pool.query('INSERT INTO usu (usunome,usuemail, ususenha) VALUES ($1, $2,$3)', [usunome,usuemail, senhaHash]);
         res.status(201).json({ message: 'Usuário cadastrado com sucesso' });
     } catch (error) {
         console.error(error);

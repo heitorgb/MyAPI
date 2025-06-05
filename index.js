@@ -129,7 +129,9 @@ app.get('/navbar', autenticarToken, (req, res) => {
 app.get('/perfil', autenticarToken, (req, res) => {
   res.sendFile(__dirname + '/public/html/perfil.html')
 });
-
+app.get('/register', (req, res) => {
+  res.sendFile(__dirname + '/public/register/register.html')
+});
 // Rota para iniciar login com Google
 app.get('/auth/google', passport.authenticate('google', {
   scope: ['profile', 'email']
