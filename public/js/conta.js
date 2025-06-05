@@ -17,7 +17,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>${dado.contatipodes}</td>
             <td>${dado.contavltotal}</td>
             <td>
-                <button class="btn btn-warning btn-sm" onclick="editar(${dado.contacod})">Editar</button>
+                <a href="editar?id=${dado.contacod}" title="Editar">
+                  <i class="fas fa-edit" style="color: #ffc107; cursor: pointer;"></i>
+                </a>
                 <button class="btn btn-danger btn-sm" onclick="deletar(${dado.contacod})">Deletar</button>
             </td>
 
@@ -55,28 +57,46 @@ document.getElementById("meuFormulario").addEventListener("submit", function (e)
   const data = Object.fromEntries(formData.entries());
   const alerta = document.getElementById("alerta-sucess");
 
-  fetch(`${BASE_URL}/conta`, {
-    method: "POST",
+  // Verifica se existe um campo 'contacod' (id da conta) para saber se é edição
+  const contacod = data.contacod || document.getElementById('contacod')?.value;
+
+  let url, method;
+  if (contacod) {
+    // Edição
+    url = `${BASE_URL}/conta/${contacod}`;
+    method = "PUT";
+  } else {
+    // Criação
+    url = `${BASE_URL}/conta`;
+    method = "POST";
+  }
+
+  fetch(url, {
+    method: method,
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   })
     .then(res => res.json())
     .then(resposta => {
       console.log(resposta);
-      // Atualiza apenas a tabela, sem recarregar a página
       atualizarTabela();
       form.reset();
+      alerta.style.display = "block";
+      alerta.innerHTML = contacod ? "Editado com sucesso!" : "Lançado com sucesso!";
+      setTimeout(() => {
+        alerta.style.display = "none";
+      }, 2000);
+      // Se for edição, volte para a lista de contas
+      if (contacod) {
+        setTimeout(() => {
+          window.location.href = "conta.html";
+        }, 1000);
+      }
     })
     .catch(erro => {
       alert("Erro ao salvar os dados.");
       console.error(erro);
     });
-    
-    alerta.style.display = "block";   
-    alerta.innerHTML = "Lançado com sucesso!"; 
-    setTimeout(() => {
-        alerta.style.display = "none";
-    }, 2000);
 });
 
 // Função para atualizar a tabela via AJAX
@@ -95,7 +115,9 @@ function atualizarTabela() {
           <td>${dado.contatipodes}</td>
           <td>${dado.contavltotal}</td>
           <td>
-            <button class="btn btn-warning btn-sm" onclick="editar(${dado.contacod})">Editar</button>
+            <a href="/editar/${dado.contacod}" title="Editar">
+              <i class="fas fa-edit" style="color: #ffc107; cursor: pointer;"></i>
+            </a>
             <button class="btn btn-danger btn-sm" onclick="deletar(${dado.contacod})">Deletar</button>
           </td>
         `;
@@ -121,34 +143,51 @@ window.deletar = function (id) {
         })
         
 };
-//editar
-window.editar = function (id) {
-  // Exemplo: obtenha os novos valores do usuário (pode ser via prompt ou modal)
-  const novoContaDes = prompt("Digite a nova descrição da categoria:");
-  const novoContaValor = prompt("Digite o novo saldo da conta):");
 
-  if (!novoContaDes || !novoContaValor) {
-    alert("Descrição e tipo são obrigatórios para editar.");
-    return;
+document.addEventListener("DOMContentLoaded", function() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  if (id) {
+    carregarContaParaEdicao(id);
   }
+});
 
-  fetch(`${BASE_URL}/conta/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      contades: novoContaDes,
-      contavltotal: novoContaValor
-    }),
-  })
-    .then((res) => res.json())
-    .then(() => {
-      alert("Registro editado com sucesso!");
-      // Atualiza a tabela após a edição
-      document.getElementById("corpoTabela").innerHTML = "";
-      location.reload();
+//editar
+// Função para buscar os dados da conta e preencher o formulário em editar.html
+function carregarContaParaEdicao(id) {
+  fetch(`${BASE_URL}/contaid/${id}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Conta não encontrada");
+      }
+      return response.json();
     })
-    .catch((erro) => {
-      alert("Erro ao editar o registro.");
-      console.error(erro);
+    .then(data => {
+      if (!Array.isArray(data) || data.length === 0) {
+        throw new Error("Conta não encontrada");
+      }
+      const conta = data[0];
+      console.log(conta);
+      const contacodElem = document.getElementById('contacod');
+      if (contacodElem) contacodElem.value = conta.contacod || "";
+
+      const contavltotalElem = document.querySelector('input[name="contavltotal"]');
+      if (contavltotalElem) contavltotalElem.value = conta.contavltotal || "";
+
+      const contadesElem = document.querySelector('input[name="contades"]');
+      if (contadesElem) contadesElem.value = conta.contades || "";
+
+      const contatipoElem = document.querySelector('select[name="contatipo"]');
+      if (contatipoElem) contatipoElem.value = conta.contatipo || "";
+
+      if (conta.contausucod) {
+        const usucodElem = document.getElementById("usucod");
+        if (usucodElem) usucodElem.value = conta.contausucod;
+      }
+    })
+    .catch(error => {
+      console.error("Erro ao buscar dados:", error);
+      alert("Erro ao carregar os dados da conta.");
     });
-};
+}
+
