@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Corrigido: async/await não pode ser usado diretamente no callback do addEventListener sem declarar a função como async.
-  // Também, a variável 'id' não está definida. Supondo que você queira buscar despesas do usuário logado.
   fetch('/api/dadosUserLogado')
     .then(res => res.json())
     .then(dados => {
@@ -19,7 +17,13 @@ document.addEventListener("DOMContentLoaded", function () {
           tr.style.color = "#155724";
         }
         const docsta = dado.docsta === "LA" ? "Aberto" : "Pago";
+        const dataFormatada = dado.docdtpag
+          ? dado.docdtpag.split("T")[0] 
+          : null;
+        const partes = dataFormatada.split("-"); 
+        const dataFormatada1 = `${partes[2]}-${partes[1]}-${partes[0]}`;
         tr.innerHTML = `
+                        <td>${dataFormatada1}</td> 
                         <td>${dado.docv}</td>
                         <td>${dado.tcdes}</td>
                         <td>${dado.natdes}</td>
@@ -131,7 +135,13 @@ async function atualizarTabelaDespesas() {
       const tr = document.createElement("tr");
       tr.style.color = dado.docsta === "LA" ? "#856404" : "#155724";
       const docsta = dado.docsta === "LA" ? "Aberto" : "Pago";
-      tr.innerHTML = `
+      const dataFormatada = dado.docdtpag
+          ? dado.docdtpag.split("T")[0] 
+          : null;
+        const partes = dataFormatada.split("-"); 
+        const dataFormatada1 = `${partes[2]}-${partes[1]}-${partes[0]}`;
+        tr.innerHTML = `
+        <td>${dataFormatada1}</td> 
         <td>${dado.docv}</td>
         <td>${dado.tcdes}</td>
         <td>${dado.natdes}</td>

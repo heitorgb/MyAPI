@@ -238,7 +238,8 @@ CREATE TABLE public.doc (
   doccod serial NOT NULL,
   docnatcod int NULL,
   docsta bpchar(2) NULL,
-  docdsta timestamp NULL,
+  docdtlan timestamp NULL,
+  docdtpag date,
   docv numeric(14, 2) DEFAULT 0 NOT NULL,
   doctccod int4 NULL,
   docnum varchar(18) NULL,
@@ -255,7 +256,8 @@ CREATE TABLE public.doc (
 - **doccod**: Código do documento (gerado automaticamente pela sequence).
 - **doctipo**: Tipo do documento.
 - **docsta**: Status.
-- **docdsta**: Data de status.
+- **docdtlan**: Data de lançamento.
+- **docdtpag**: Data de pagamento.
 - **docv**: Valor do documento.
 - **doctccod**: Código do tipo de cobrança (chave estrangeira para `tc`).
 - **docnum**: Número do documento.

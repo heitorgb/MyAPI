@@ -68,6 +68,7 @@
                                     <h3>Novo lançamento</h3>
                                     <form id="meuFormulario">
                                         <input id="usucod" type="hidden" name="docusucod" value="">
+                                        <input id="docdtlan" type="hidden" name="docdtlan" value="">
 
                                         <div class="form-group">
                                             <label>Conta:</label>
@@ -92,13 +93,14 @@
 
                                         <div class="form-group">
                                             <label>Valor:</label>
-                                            <input type="text" name="docv" class="form-control" required
+                                            <input id="docv" type="text" name="docv" class="form-control" required
                                                 placeholder="R$ 0,00">
                                         </div>
 
+
                                         <div class="form-group">
                                             <label>Observações (opcional):</label>
-                                            <textarea name="docobs" rows="3" class="form-control"
+                                            <textarea name="docobs" rows="2" class="form-control"
                                                 placeholder="Informações complementares"></textarea>
                                         </div>
 
@@ -109,6 +111,11 @@
                                                     value="BA">
                                                 <label class="form-check-label" for="status">Recebido</label>
                                             </div>
+                                            <div class="form-group">
+
+                                                <input id="docdtpag" type="date" name="docdtpag" class="form-control"
+                                                    required>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -116,7 +123,8 @@
                                         </div>
 
                                         <br>
-                                        <div class="alert alert-success" id="alerta-sucess" style="display: none;"></div>
+                                        <div class="alert alert-success" id="alerta-sucess" style="display: none;">
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -126,6 +134,7 @@
                                 <table class="table table-lg">
                                     <thead>
                                         <tr>
+                                            <th>Data</th>
                                             <th>Valor</th>
                                             <th>Cobrança</th>
                                             <th>Natureza</th>
@@ -155,6 +164,15 @@
     <script src="../js/cronometro.js"></script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/logout.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const campoData = document.getElementById('docdtpag');
+            if (!campoData.value) {
+                const hoje = new Date().toISOString().split('T')[0];
+                campoData.value = hoje;
+            }
+        });
+    </script>
     <!--Bootstrap Scripts-->
     <script src="../js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
