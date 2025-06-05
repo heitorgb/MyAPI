@@ -2,8 +2,9 @@ const pool = require('../db/db.js');
 
 exports.Insertconta = async (req, res) => {
     const {contausucod, contades,contatipo,contavltotal } = req.body;
+    const valor = parseFloat(contavltotal.replace(',','.'));
     try {
-        const result = await pool.query('insert into conta (contausucod,contades,contatipo,contavltotal) values ($1, $2, $3, $4) RETURNING *', [contausucod,contades,contatipo,contavltotal]);
+        const result = await pool.query('insert into conta (contausucod,contades,contatipo,contavltotal) values ($1, $2, $3, $4) RETURNING *', [contausucod,contades,contatipo,valor]);
         res.status(201).json(result.rows[0]);
     } catch (error) {
         console.error(error);

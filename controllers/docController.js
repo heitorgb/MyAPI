@@ -1,11 +1,14 @@
 const pool = require('../db/db.js');
 
 exports.criarDoc = async (req, res) => {
-    const { docusucod, docnatcod ,docsta,docdsta,docv,doctccod,docnum,docobs,doccontacod,doccatcod } = req.body;
+    const { docusucod, docnatcod, docsta, docdtlan, docv, doctccod, docnum, docobs, doccontacod, doccatcod,docdtpag } = req.body;
+
+    const valor = parseFloat(docv.replace(',','.'));
+    const agora = 'now()';
     try {
         const result = await pool.query(
-            'INSERT INTO doc (docusucod,docnatcod,docsta,docdsta,docv,doctccod,docnum,docobs,doccontacod,doccatcod) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
-            [docusucod, docnatcod ,docsta,docdsta,docv,doctccod,docnum,docobs,doccontacod,doccatcod]
+            'INSERT INTO doc (docusucod,docnatcod,docsta,docdtlan,docv,doctccod,docnum,docobs,doccontacod,doccatcod,docdtpag) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *',
+            [docusucod, docnatcod, docsta, agora, valor, doctccod, docnum, docobs, doccontacod, doccatcod,docdtpag]
         );
         res.status(201).json(result.rows[0]);
     } catch (error) {
@@ -17,9 +20,9 @@ exports.criarDoc = async (req, res) => {
 exports.listarDocs = async (req, res) => {
     const { id } = req.params;
     try {
-        const result = await pool.query('select doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc join natureza on natcod = docnatcod '+
-            'join tc on tccod = doctccod '+ 
-            'join conta on contacod = doccontacod '+
+        const result = await pool.query('select doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc join natureza on natcod = docnatcod ' +
+            'join tc on tccod = doctccod ' +
+            'join conta on contacod = doccontacod ' +
             'left join categoria on catcod = doccatcod where docusucod = $1', [id]);
         res.status(200).json(result.rows);
     } catch (error) {
@@ -28,14 +31,14 @@ exports.listarDocs = async (req, res) => {
     }
 };
 
-exports.listarDocsReceitas = async (req, res) => { 
+exports.listarDocsReceitas = async (req, res) => {
     try {
-        const natureza = "Receita"    
-        const result = await pool.query('select doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc '+ 
-            'join natureza on natcod = docnatcod '+
-            'join tc on tccod = doctccod '+ 
-            'join conta on contacod = doccontacod '+
-            'left join categoria on catcod = doccatcod '+
+        const natureza = "Receita"
+        const result = await pool.query('select doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc ' +
+            'join natureza on natcod = docnatcod ' +
+            'join tc on tccod = doctccod ' +
+            'join conta on contacod = doccontacod ' +
+            'left join categoria on catcod = doccatcod ' +
             'where natdes = $1', [natureza]);
         res.status(200).json(result.rows);
     } catch (error) {
@@ -44,14 +47,14 @@ exports.listarDocsReceitas = async (req, res) => {
     }
 };
 
-exports.listarDocsDespesas = async (req, res) => { 
+exports.listarDocsDespesas = async (req, res) => {
     try {
-        const natureza = "Despesa"    
-        const result = await pool.query('select docusucod,doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc '+ 
-            'join natureza on natcod = docnatcod '+
-            'join tc on tccod = doctccod '+ 
-            'join conta on contacod = doccontacod '+
-            'left join categoria on catcod = doccatcod '+
+        const natureza = "Despesa"
+        const result = await pool.query('select docusucod,doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc ' +
+            'join natureza on natcod = docnatcod ' +
+            'join tc on tccod = doctccod ' +
+            'join conta on contacod = doccontacod ' +
+            'left join categoria on catcod = doccatcod ' +
             'where natdes = $1', [natureza]);
         res.status(200).json(result.rows);
     } catch (error) {
@@ -62,16 +65,16 @@ exports.listarDocsDespesas = async (req, res) => {
 
 
 
-exports.listarDocsDespesasUser = async (req, res) => { 
-    const {id} = req.params;
+exports.listarDocsDespesasUser = async (req, res) => {
+    const { id } = req.params;
     try {
-        const natureza = "Despesa"    
-        const result = await pool.query('select docusucod,doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc '+ 
-            'join natureza on natcod = docnatcod '+
-            'join tc on tccod = doctccod '+ 
-            'join conta on contacod = doccontacod '+
-            'left join categoria on catcod = doccatcod '+
-            'where natdes = $1 and docusucod = $2', [natureza,id]);
+        const natureza = "Despesa"
+        const result = await pool.query('select docusucod,doccod, docsta, tcdes,docdtlan,docdtpag ::date, natdes, docv, docobs,contades,catdes from doc ' +
+            'join natureza on natcod = docnatcod ' +
+            'join tc on tccod = doctccod ' +
+            'join conta on contacod = doccontacod ' +
+            'left join categoria on catcod = doccatcod ' +
+            'where natdes = $1 and docusucod = $2', [natureza, id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -80,16 +83,16 @@ exports.listarDocsDespesasUser = async (req, res) => {
 };
 
 
-exports.listarDocsReceitasUser = async (req, res) => { 
-    const {id} = req.params;
+exports.listarDocsReceitasUser = async (req, res) => {
+    const { id } = req.params;
     try {
-        const natureza = "Receita"    
-        const result = await pool.query('select docusucod,doccod, docsta, tcdes, natdes, docv, docobs,contades,catdes from doc '+ 
-            'join natureza on natcod = docnatcod '+
-            'join tc on tccod = doctccod '+ 
-            'join conta on contacod = doccontacod '+
-            'left join categoria on catcod = doccatcod '+
-            'where natdes = $1 and docusucod = $2', [natureza,id]);
+        const natureza = "Receita"
+        const result = await pool.query('select docusucod,doccod, docsta, tcdes,docdtlan,docdtpag ::date, natdes, docv, docobs,contades,catdes from doc ' +
+            'join natureza on natcod = docnatcod ' +
+            'join tc on tccod = doctccod ' +
+            'join conta on contacod = doccontacod ' +
+            'left join categoria on catcod = doccatcod ' +
+            'where natdes = $1 and docusucod = $2', [natureza, id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);

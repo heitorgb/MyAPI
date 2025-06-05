@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch('/api/dadosUserLogado')
     .then(res => res.json())
     .then(dados => {
-      
+
       return fetch(`${BASE_URL}/doc/receitas/${dados.usucod}`)
     })
     .then((res) => res.json())
@@ -20,7 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
           tr.style.color = "#155724"; // texto escuro para contraste
         }
         const docsta = dado.docsta === "LA" ? "Pendente" : "Recebido";
+        const dataFormatada = dado.docdtpag
+          ? dado.docdtpag.split("T")[0] 
+          : null;
+        const partes = dataFormatada.split("-");
+        const dataFormatada1 = `${partes[2]}-${partes[1]}-${partes[0]}`;
         tr.innerHTML = `
+            <td>${dataFormatada1}</td> 
             <td>${dado.docv}</td>
             <td>${dado.tcdes}</td>
             <td>${dado.natdes}</td>
@@ -111,11 +117,11 @@ document
         console.error(erro);
       });
 
-      alerta.style.display = "block";   
-      alerta.innerHTML = "Lançado com sucesso!"; 
-      setTimeout(() => {
-          alerta.style.display = "none";
-      }, 2000);
+    alerta.style.display = "block";
+    alerta.innerHTML = "Lançado com sucesso!";
+    setTimeout(() => {
+      alerta.style.display = "none";
+    }, 2000);
   });
 
 // Função para atualizar a tabela de despesas via AJAX
@@ -132,7 +138,13 @@ async function atualizarTabelaReceitas() {
       const tr = document.createElement("tr");
       tr.style.color = dado.docsta === "LA" ? "#856404" : "#155724";
       const docsta = dado.docsta === "LA" ? "Aberto" : "Pago";
-      tr.innerHTML = `
+      const dataFormatada = dado.docdtpag
+          ? dado.docdtpag.split("T")[0] 
+          : null;
+        const partes = dataFormatada.split("-"); 
+        const dataFormatada1 = `${partes[2]}-${partes[1]}-${partes[0]}`;
+        tr.innerHTML = `
+        <td>${dataFormatada1}</td> 
         <td>${dado.docv}</td>
         <td>${dado.tcdes}</td>
         <td>${dado.natdes}</td>
@@ -159,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch('/api/dadosUserLogado')
     .then(res => res.json())
     .then(dados => {
-      
+
       return fetch(`${BASE_URL}/tc/${dados.usucod}`)
     })
     .then((response) => {
@@ -185,10 +197,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Quando o DOM estiver carregado listar as contas no options contas
 document.addEventListener("DOMContentLoaded", function () {
- fetch('/api/dadosUserLogado')
+  fetch('/api/dadosUserLogado')
     .then(res => res.json())
     .then(dados => {
-      
+
       return fetch(`${BASE_URL}/contas/${dados.usucod}`)
     })
     .then((response) => {
@@ -216,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch('/api/dadosUserLogado')
     .then(res => res.json())
     .then(dados => {
-      
+
       return fetch(`${BASE_URL}/catTodosReceita/${dados.usucod}`)
     })
     .then((response) => {

@@ -112,6 +112,11 @@
                                                     value="BA">
                                                 <label class="form-check-label" for="status">Pago</label>
                                             </div>
+                                            <div class="form-group">
+
+                                                <input id="docdtpag" type="date" name="docdtpag" class="form-control"
+                                                    required>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -119,7 +124,8 @@
                                         </div>
 
                                         <br>
-                                        <div class="alert alert-success" id="alerta-sucess" style="display: none;"></div>
+                                        <div class="alert alert-success" id="alerta-sucess" style="display: none;">
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -129,6 +135,7 @@
                                 <table class="table table-lg">
                                     <thead>
                                         <tr>
+                                            <th>Data</th>
                                             <th>Valor</th>
                                             <th>Cobrança</th>
                                             <th>Natureza</th>
@@ -158,6 +165,16 @@
     <script src="../js/cronometro.js"></script>
     <script src="../js/sidebar.js"></script>
     <script src="../js/logout.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const campoData = document.getElementById('docdtpag');
+            if (!campoData.value) {
+                const hoje = new Date().toISOString().split('T')[0];
+                campoData.value = hoje;
+            }
+        });
+    </script>
+    
     <!--Bootstrap Scripts-->
     <script src="../js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
