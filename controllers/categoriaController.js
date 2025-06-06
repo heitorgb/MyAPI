@@ -53,7 +53,7 @@ exports.listarCategoriaReceita = async (req, res) => {
     const { id } = req.params;
     try {
         const r = "R"
-        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 and catusucod = $2 order by catcod', [r,id]);
+        const result = await pool.query('select catcod,catdes,cattipo,sum(docv) as docv from categoria join doc on doccatcod = catcod where cattipo = $1 and catusucod = $2 group by catcod,catdes,cattipo', [r,id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
@@ -76,7 +76,8 @@ exports.listarCategoriaDespesa = async (req, res) => {
     const { id } = req.params;
     try {
         const d = "D"
-        const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 and catusucod = $2 order by catcod', [d,id]);
+        //const result = await pool.query('select catcod,catdes,cattipo,docv from categoria join doc on doccatcod = catcod where cattipo = $1 and catusucod = $2 order by catcod', [d,id]);
+        const result = await pool.query('select catcod,catdes,cattipo,sum(docv) as docv from categoria join doc on doccatcod = catcod where cattipo = $1 and catusucod = $2 group by catcod,catdes,cattipo', [d,id]);
         res.status(200).json(result.rows);
     } catch (error) {
         console.error(error);
