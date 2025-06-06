@@ -30,7 +30,7 @@ fetch('/api/dadosUserLogado')
         datasets: [
           {
             data: valores,
-            backgroundColor: ["#007bff", "#dc3545", "#ffc107", "#28a745"],
+            backgroundColor: ["#007bff", "#dc3545", "#ffc107", "#28a745", "#6f42c1", "#17a2b8", "#fd7e14", "#6610f2", "#e83e8c", "#20c997", "#343a40", "#f8f9fa"],
           },
         ],
       },
